@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,17 +22,23 @@ public class Inventory : MonoBehaviour
     void Awake()
     {
         Singleton = this;
-        giveItemBtn.onClick.AddListener(delegate { SpawnInventoryItem(); } ); 
+
+        if (giveItemBtn != null)
+            giveItemBtn.onClick.AddListener(delegate { SpawnInventoryItem(); });
     }
+
 
     public void SpawnInventoryItem(Item item = null)
     {
         Item _item = item;
-        if (_item != null)
+
+        // ✅ Fix: Only pick a random item if no item was passed in
+        if (_item == null)
         {
             int random = Random.Range(0, items.Length);
             _item = items[random];
         }
+
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             if (inventorySlots[i].myItem == null)
@@ -42,10 +48,12 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
+
     // Start is called before the first frame update
     //void Start()
     //{
-        
+
     //}
 
     // Update is called once per frame

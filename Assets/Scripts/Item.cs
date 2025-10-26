@@ -1,27 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public enum SlotTag { None }
-[CreateAssetMenu(menuName = "Scriptable Objects/Item")]
+[CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
 {
+    public string itemName;
     public Sprite sprite;
-    public SlotTag itemTag;
-
-    [Header("If the item can be equipped")]
-    public GameObject equipmentPrefab;
-
-
-    //// Start is called before the first frame update
-    //void Start()
-    //{
-        
-    //}
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
+    public SlotTag itemTag = SlotTag.None;
 }
+
+public enum SlotTag { None, Head, Body, Weapon }

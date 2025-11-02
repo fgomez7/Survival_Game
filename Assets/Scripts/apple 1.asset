@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39ec20dd39552834cb038cb9a99c350a, type: 3}
-  m_Name: Apple
+  m_Script: {fileID: 11500000, guid: 3853e7087fa35e149b7c687ba239d433, type: 3}
+  m_Name: apple 1
   m_EditorClassIdentifier: 
-  itemName: Apple
-  sprite: {fileID: -306974805, guid: b728044f29bedbf45951587e4fabc4d2, type: 3}
-  itemTag: 0
+  itemName: 
+  icon: {fileID: -306974805, guid: b728044f29bedbf45951587e4fabc4d2, type: 3}
+  isConsumable: 0

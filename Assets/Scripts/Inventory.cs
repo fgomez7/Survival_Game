@@ -88,4 +88,62 @@ public class Inventory : MonoBehaviour
                 break;
         }
     }
+    // Check if player has enough of a specific item (by name)
+    // Check if player has enough of a specific item (by ScriptableObject)
+    public bool HasItem(Item item, int quantity)
+    {
+        int count = 0;
+        foreach (var slot in inventorySlots)
+        {
+            if (slot.myItem != null && slot.myItem.myItem.itemName == item.itemName)
+            {
+                count++;
+            }
+        }
+        return count >= quantity;
+    }
+
+    // Remove items from slots
+    public void RemoveItem(Item item, int quantity)
+    {
+        int removed = 0;
+        foreach (var slot in inventorySlots)
+        {
+            if (slot.myItem != null && slot.myItem.myItem.itemName == item.itemName)
+            {
+                Destroy(slot.myItem.gameObject);
+                slot.myItem = null;
+                removed++;
+                if (removed >= quantity) return;
+            }
+        }
+    }
+
+    // Add crafted item to next available slot
+    public void AddItem(Item item, int quantity)
+    {
+        for (int i = 0; i < quantity; i++)
+        {
+            for (int j = 0; j < inventorySlots.Length; j++)
+            {
+                if (inventorySlots[j].myItem == null)
+                {
+                    Instantiate(itemPrefab, inventorySlots[j].transform).Initialize(item, inventorySlots[j]);
+                    break;
+                }
+            }
+        }
+    }
+    void Start()
+    {
+        // Make sure you have items assigned in the Inspector list
+        if (items.Length > 0)
+        {
+            // This assumes Wood is the first item in your list
+            SpawnInventoryItem(items[0]);
+            SpawnInventoryItem(items[0]);
+            SpawnInventoryItem(items[0]);
+        }
+    }
+
 }

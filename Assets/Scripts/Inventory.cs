@@ -43,7 +43,13 @@ public class Inventory : MonoBehaviour
         {
             if (inventorySlots[i].myItem == null)
             {
-                Instantiate(itemPrefab, inventorySlots[i].transform).Initialize(_item, inventorySlots[i]);
+                var newItem = Instantiate(itemPrefab, inventorySlots[i].transform);
+                RectTransform rect = newItem.GetComponent<RectTransform>();
+                rect.anchoredPosition = Vector2.zero;
+                rect.offsetMin = Vector2.zero;
+                rect.offsetMax = Vector2.zero;
+                rect.localScale = Vector3.one;
+                newItem.Initialize(_item, inventorySlots[i]);
                 break;
             }
         }
@@ -121,19 +127,30 @@ public class Inventory : MonoBehaviour
 
     // Add crafted item to next available slot
     public void AddItem(Item item, int quantity)
+{
+    for (int i = 0; i < quantity; i++)
     {
-        for (int i = 0; i < quantity; i++)
+        for (int j = 0; j < inventorySlots.Length; j++)
         {
-            for (int j = 0; j < inventorySlots.Length; j++)
+            if (inventorySlots[j].myItem == null)
             {
-                if (inventorySlots[j].myItem == null)
-                {
-                    Instantiate(itemPrefab, inventorySlots[j].transform).Initialize(item, inventorySlots[j]);
-                    break;
-                }
+                // Instantiate prefab
+                var newItem = Instantiate(itemPrefab, inventorySlots[j].transform);
+
+                // ✅ Center and scale properly inside the slot
+                RectTransform rect = newItem.GetComponent<RectTransform>();
+                rect.anchoredPosition = Vector2.zero;
+                rect.offsetMin = Vector2.zero;
+                rect.offsetMax = Vector2.zero;
+                rect.localScale = Vector3.one;
+
+                // Initialize item visuals
+                newItem.Initialize(item, inventorySlots[j]);
+                break;
             }
         }
     }
+}
     void Start()
     {
         // Make sure you have items assigned in the Inspector list
@@ -141,8 +158,8 @@ public class Inventory : MonoBehaviour
         {
             // This assumes Wood is the first item in your list
             SpawnInventoryItem(items[0]);
-            SpawnInventoryItem(items[0]);
-            SpawnInventoryItem(items[0]);
+            SpawnInventoryItem(items[1]);
+            SpawnInventoryItem(items[2]);
         }
     }
 

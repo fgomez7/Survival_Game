@@ -3179,7 +3179,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1183005920
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3342,6 +3342,8 @@ MonoBehaviour:
   itemPrefab: {fileID: 1086065832}
   items:
   - {fileID: 11400000, guid: 1e3f675ea6e585b4c9d3ebc20dab2f4e, type: 2}
+  - {fileID: 11400000, guid: 7b5acade9a6508b4a97b50f5fc1dcc7b, type: 2}
+  - {fileID: 11400000, guid: 8c7d0463f742f894a81f34d8a0ca4a61, type: 2}
   giveItemBtn: {fileID: 0}
 --- !u!4 &1260346771
 Transform:

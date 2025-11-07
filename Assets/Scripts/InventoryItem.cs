@@ -38,6 +38,14 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         }
 
         icon.sprite = item.sprite;
+        // ✅ Force item to align perfectly inside its slot
+        RectTransform rect = GetComponent<RectTransform>();
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.anchoredPosition = Vector2.zero;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+        rect.localScale = Vector3.one;
     }
 
     public void OnPointerClick(PointerEventData eventData)

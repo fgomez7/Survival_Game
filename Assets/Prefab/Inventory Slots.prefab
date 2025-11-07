@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5912411251937451576}
   - component: {fileID: 4474095677290982136}
   - component: {fileID: -8596223007683835531}
+  - component: {fileID: -7817350984555348410}
   m_Layer: 5
   m_Name: Inventory Slots
   m_TagString: Untagged
@@ -88,3 +89,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d62fe8b7f7c5ba4eaf798afd4c6a3b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myTag: 0
+--- !u!114 &-7817350984555348410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154657885723532697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 30, y: 30}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2

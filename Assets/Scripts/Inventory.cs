@@ -31,6 +31,28 @@ public class Inventory : MonoBehaviour
     {
         Item _item = item;
 
+        // ✅ Only pick a random item if none was passed in
+        if (_item == null)
+        {
+            int random = Random.Range(0, items.Length);
+            _item = items[random];
+        }
+
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            if (inventorySlots[i].myItem == null)
+            {
+                Instantiate(itemPrefab, inventorySlots[i].transform).Initialize(_item, inventorySlots[i]);
+                break;
+            }
+        }
+    }
+
+
+    /* public void SpawnInventoryItem(Item item = null)
+    {
+        Item _item = item;
+
         // ✅ Fix: Only pick a random item if no item was passed in
         if (_item != null)
         {
@@ -54,7 +76,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-
+        */
 
     // Start is called before the first frame update
     //void Start()
@@ -153,14 +175,34 @@ public class Inventory : MonoBehaviour
     }
     void Start()
     {
-        // Make sure you have items assigned in the Inspector list
-        //if (items.Length > 0)
-        //{
-        //    // This assumes Wood is the first item in your list
-        //    SpawnInventoryItem(items[0]);
-        //    SpawnInventoryItem(items[1]);
-        //    SpawnInventoryItem(items[2]);
-        //}
+        Debug.Log("🔍 Inventory.Start() has been called!");
+
+        if (items.Length > 0)
+        {
+            // Assuming items[0] = Wood, items[1] = Stone
+            Item wood = items[0];
+            Item stone = items.Length > 1 ? items[1] : null;
+
+            // Give 5 Wood
+            for (int i = 0; i < 10; i++)
+            {
+                SpawnInventoryItem(wood);
+            }
+
+            // Give 3 Stone
+            if (stone != null)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    SpawnInventoryItem(stone);
+                }
+            }
+
+            Debug.Log("✅ Starting resources added: 10 Wood, 10 Stone");
+        }
     }
+
+
+
 
 }

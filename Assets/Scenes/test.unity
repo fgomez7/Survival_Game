@@ -32527,7 +32527,7 @@ MonoBehaviour:
   craftBoxButton: {fileID: 1381457364}
   craftSwordButton: {fileID: 214342050}
   craftAxeButton: {fileID: 1143053078}
-  spawnPoint: {fileID: 0}
+  spawnPoint: {fileID: 995403133}
   spawnRadius: 1
 --- !u!114 &1119998250
 MonoBehaviour:
@@ -36528,7 +36528,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1250957630}
   - component: {fileID: 1250957629}
-  - component: {fileID: 1250957631}
   m_Layer: 0
   m_Name: CraftingSystem
   m_TagString: Untagged
@@ -36550,7 +36549,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   availableRecipes:
   - {fileID: 11400000, guid: daffaab7445b00645ab891b60fe9e98b, type: 2}
-  inventory: {fileID: 1260346770}
+  inventory: {fileID: 1183005923}
+  dropPoint: {fileID: 0}
 --- !u!4 &1250957630
 Transform:
   m_ObjectHideFlags: 0
@@ -36566,20 +36566,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1250957631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1250957628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 793cc77d12bf84b449bbd9e685be050f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  craftingSystem: {fileID: 1250957629}
-  recipeToCraft: {fileID: 11400000, guid: daffaab7445b00645ab891b60fe9e98b, type: 2}
 --- !u!1 &1260346769
 GameObject:
   m_ObjectHideFlags: 0
@@ -63724,6 +63710,10 @@ PrefabInstance:
     - target: {fileID: 5124984983297199497, guid: 55d975acd4e884141b63b74249ab3c4d, type: 3}
       propertyPath: m_Name
       value: InventoryItem`
+      objectReference: {fileID: 0}
+    - target: {fileID: 5124984983297199497, guid: 55d975acd4e884141b63b74249ab3c4d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8514586696248099222, guid: 55d975acd4e884141b63b74249ab3c4d, type: 3}
       propertyPath: m_Pivot.x

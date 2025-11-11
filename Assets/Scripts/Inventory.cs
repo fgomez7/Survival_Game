@@ -22,11 +22,11 @@ public class Inventory : MonoBehaviour
     {
     Singleton = this;
 
-    // Auto-fill if not set in Inspector
+    // 🔧 Automatically find all InventorySlot components under this Inventory object
     if (inventorySlots == null || inventorySlots.Length == 0)
     {
         inventorySlots = GetComponentsInChildren<InventorySlot>(true);
-        Debug.Log($"[Inventory] Auto-populated inventorySlots: {inventorySlots.Length}");
+        Debug.Log($"[Inventory] Auto-linked {inventorySlots.Length} inventory slots.");
     }
 
     giveItemBtn.onClick.AddListener(delegate { SpawnInventoryItem(); });
@@ -62,21 +62,24 @@ public class Inventory : MonoBehaviour
 
     // Spawns an inventory item into the next empty slot
     public void SpawnInventoryItem(Item item = null)
-    {
-        Item _item = item;
-
-        if (_item == null && items.Length > 0)
-            _item = items[Random.Range(0, items.Length)];
-
-        for (int i = 0; i < inventorySlots.Length; i++)
         {
-            if (inventorySlots[i].myItem == null)
-            {
-                var newItem = Instantiate(itemPrefab, inventorySlots[i].transform);
-                newItem.Initialize(_item, inventorySlots[i]);
-                break;
-            }
+    Item _item = item;
+
+    if (_item == null && items.Length > 0)
+        _item = items[Random.Range(0, items.Length)];
+
+    for (int i = 0; i < inventorySlots.Length; i++)
+    {
+        if (inventorySlots[i].myItem == null)
+        {
+            var newItem = Instantiate(itemPrefab, inventorySlots[i].transform);
+            newItem.Initialize(_item, inventorySlots[i]);
+
+            // 👇 Add this right here
+            Debug.Log($"🧱 Spawned {_item.itemName} into slot {i}. myItem set? {inventorySlots[i].myItem != null}");
+            break;
         }
+    }
     }
 
     public void SetCarriedItem(InventoryItem item)
@@ -108,16 +111,28 @@ public class Inventory : MonoBehaviour
     // ✅ Check if player has enough of a specific item
     public bool HasItem(Item item, int quantity)
     {
-        int count = 0;
-        foreach (var slot in inventorySlots)
+    int count = 0;
+    Debug.Log($"🔍 [HasItem] Checking for: {item.name} (ID: {item.GetInstanceID()})");
+
+    foreach (var slot in inventorySlots)
+    {
+        if (slot.myItem != null)
         {
-            if (slot.myItem != null && slot.myItem.myItem.itemName == item.itemName)
+            Item slotItem = slot.myItem.myItem;
+            Debug.Log($"   → Slot has {slotItem.name} (ID: {slotItem.GetInstanceID()})");
+
+            // Compare by reference (same object in memory)
+            if (slotItem == item)
                 count++;
         }
+        else
+        {
+            Debug.Log("   → Slot empty");
+        }
+    }
 
-        Debug.Log($"🔍 Checking inventory for {item.itemName}: found {count}, need {quantity}");
-        Debug.Log($"🔍 Checking for {item.itemName}: Found {count} / Need {quantity}");
-        return count >= quantity;
+    Debug.Log($"[HasItem] Result: Found {count}, Need {quantity}");
+    return count >= quantity;
     }
 
     // ✅ Remove items from slots

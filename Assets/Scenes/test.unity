@@ -28189,6 +28189,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1708773060}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &995403132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 995403133}
+  m_Layer: 0
+  m_Name: ItemSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &995403133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995403132}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 24.17, y: 32.92, z: -0.049109276}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &996825413
 GameObject:
   m_ObjectHideFlags: 0
@@ -32496,6 +32527,8 @@ MonoBehaviour:
   craftBoxButton: {fileID: 1381457364}
   craftSwordButton: {fileID: 214342050}
   craftAxeButton: {fileID: 1143053078}
+  spawnPoint: {fileID: 0}
+  spawnRadius: 1
 --- !u!114 &1119998250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42592,7 +42625,7 @@ Transform:
   m_GameObject: {fileID: 1453326811}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.56, y: 12.56, z: 0}
+  m_LocalPosition: {x: 23.59, y: 28.47, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -63905,3 +63938,4 @@ SceneRoots:
   - {fileID: 1260346771}
   - {fileID: 1250957630}
   - {fileID: 256888034}
+  - {fileID: 995403133}

@@ -3,7 +3,10 @@ using UnityEngine.UI;
 
 public class CraftingMenuUI : MonoBehaviour
 {
+    [Header("Crafting System Reference")]
     public CraftingSystem craftingSystem;
+
+    [Header("Available Recipes")]
     public RecipeData[] availableRecipes;
 
     [Header("Buttons")]
@@ -12,23 +15,46 @@ public class CraftingMenuUI : MonoBehaviour
     public Button craftSwordButton;
     public Button craftAxeButton;
 
-    void Start()
+    [Header("Spawn Settings")]
+    public Transform spawnPoint; // drag your ItemSpawnPoint here
+    public float spawnRadius = 1f; // small random offset so items don’t overlap
+
+    private void Start()
     {
-        craftStickButton.onClick.AddListener(() => CraftItem(availableRecipes[0]));
-        craftBoxButton.onClick.AddListener(() => CraftItem(availableRecipes[1]));
-        craftSwordButton.onClick.AddListener(() => CraftItem(availableRecipes[2]));
-        craftAxeButton.onClick.AddListener(() => CraftItem(availableRecipes[3]));
+        // Link button clicks to craft attempts
+        craftStickButton.onClick.AddListener(() => TryCraft(availableRecipes[0]));
+        craftBoxButton.onClick.AddListener(() => TryCraft(availableRecipes[1]));
+        craftSwordButton.onClick.AddListener(() => TryCraft(availableRecipes[2]));
+        craftAxeButton.onClick.AddListener(() => TryCraft(availableRecipes[3]));
     }
 
-    void CraftItem(RecipeData recipe)
+    private void TryCraft(RecipeData recipe)
     {
-        if (craftingSystem != null && recipe != null)
+        bool success = craftingSystem.Craft(recipe);
+
+        if (success)
         {
-            craftingSystem.CraftItem(recipe);
+            Debug.Log("Crafted: " + recipe.name);
+            SpawnCraftedItem(recipe.outputItemPrefab);
         }
         else
         {
-            Debug.LogWarning("Crafting system or recipe not assigned!");
+            Debug.Log("Not enough resources to craft " + recipe.name);
         }
+    }
+
+    private void SpawnCraftedItem(GameObject prefab)
+    {
+        if (prefab == null)
+        {
+            Debug.LogWarning("No prefab assigned to this recipe!");
+            return;
+        }
+
+        // Small random offset around the spawn point
+        Vector2 offset = Random.insideUnitCircle * spawnRadius;
+        Vector3 spawnPosition = spawnPoint.position + new Vector3(offset.x, offset.y, 0);
+
+        Instantiate(prefab, spawnPosition, Quaternion.identity);
     }
 }

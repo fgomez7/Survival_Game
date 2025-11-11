@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 402f36b94f508cc43b651a0b0c49e663, type: 3}
   m_Name: WoodToStick
   m_EditorClassIdentifier: 
+  recipeName: WoodToStick
+  requiredItem1: {fileID: 11400000, guid: 1e3f675ea6e585b4c9d3ebc20dab2f4e, type: 2}
+  requiredAmount1: 2
+  requiredItem2: {fileID: 0}
+  requiredAmount2: 0
   outputItem: {fileID: 11400000, guid: 7b5acade9a6508b4a97b50f5fc1dcc7b, type: 2}
-  outputQuantity: 1
-  ingredients:
-  - item: {fileID: 11400000, guid: 1e3f675ea6e585b4c9d3ebc20dab2f4e, type: 2}
-    quantity: 2
+  outputItemPrefab: {fileID: 2208882335616104547, guid: 9cbbb00863fb2438bac9ddd345344c37, type: 3}

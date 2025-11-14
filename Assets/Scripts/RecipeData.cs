@@ -1,17 +1,16 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Recipe", menuName = "Items/Recipe Data")]
+[CreateAssetMenu(menuName = "Crafting/RecipeData")]
 public class RecipeData : ScriptableObject
 {
+    public string recipeName;
+
+    public Item requiredItem1;
+    public int requiredAmount1;
+
+    public Item requiredItem2;
+    public int requiredAmount2;
+
     public Item outputItem;
-    public int outputQuantity = 1;
-
-    [System.Serializable]
-    public class Ingredient
-    {
-        public Item item;
-        public int quantity;
-    }
-
-    public Ingredient[] ingredients;
+    public GameObject outputItemPrefab; // drag Stick prefab here
 }

@@ -2,35 +2,62 @@ using UnityEngine;
 
 public class CraftingZone : MonoBehaviour
 {
-    public GameObject craftingMenuUI;
+    [Header("Crafting UI Reference")]
+    [SerializeField] private GameObject craftingMenuUI;   // Drag your CraftingMenu Canvas here
+
     private bool playerNearby = false;
+    private bool isQuitting = false; // 🧩 prevents errors when exiting Play Mode
 
     void Update()
     {
         if (playerNearby && Input.GetKeyDown(KeyCode.C))
         {
+            if (craftingMenuUI == null)
+            {
+                Debug.LogWarning("⚠️ CraftingMenuUI not assigned in the Inspector!");
+                return;
+            }
+
             bool isActive = craftingMenuUI.activeSelf;
             craftingMenuUI.SetActive(!isActive);
-            Debug.Log("Pressed C near the house");
+            Debug.Log("🪓 Pressed C near the house - toggling menu: " + !isActive);
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other != null && other.CompareTag("Player"))
         {
             playerNearby = true;
-            Debug.Log("Player entered crafting zone");
+            
+            Debug.Log("✅ Player entered crafting zone");
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        // 🛡️ Skip if exiting play mode or object destroyed
+        if (isQuitting || !Application.isPlaying) return;
+        if (other == null) return;
+        if (!other.CompareTag("Player")) return;
+
+        playerNearby = false;
+
+        if (craftingMenuUI != null)
         {
-            playerNearby = false;
             craftingMenuUI.SetActive(false);
-            Debug.Log("Player left crafting zone");
+            Debug.Log("🚪 Player left crafting zone (menu closed safely)");
         }
+    }
+
+    // Called when Unity stops playing or object is destroyed
+    void OnDisable()
+    {
+        isQuitting = true;
+    }
+
+    void OnApplicationQuit()
+    {
+        isQuitting = true;
     }
 }

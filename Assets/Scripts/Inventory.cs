@@ -11,100 +11,91 @@ public class Inventory : MonoBehaviour
     public static InventoryItem carriedItem;
 
     [SerializeField] InventorySlot[] inventorySlots;
-
     [SerializeField] Transform draggablesTransform;
     [SerializeField] InventoryItem itemPrefab;
 
     [Header("Item List")]
-    [SerializeField] Item[] items;
+    [SerializeField] Item[] items; // assign Wood (0) and Stone (1) in Inspector
 
     [Header("Debug")]
     [SerializeField] Button giveItemBtn;
 
     void Awake()
     {
-        Singleton = this;
+    Singleton = this;
 
-        giveItemBtn.onClick.AddListener(delegate { SpawnInventoryItem(); });
+    // 🔧 Automatically find all InventorySlot components under this Inventory object
+    if (inventorySlots == null || inventorySlots.Length == 0)
+    {
+        inventorySlots = GetComponentsInChildren<InventorySlot>(true);
+        Debug.Log($"[Inventory] Auto-linked {inventorySlots.Length} inventory slots.");
     }
 
+    giveItemBtn.onClick.AddListener(delegate { SpawnInventoryItem(); });
+    }
 
+    void Start()
+    {
+        Debug.Log("🔍 Inventory.Start() called!");
+
+        if (items != null && items.Length > 0)
+        {
+            // Give 10 Wood (items[0]) and 10 Stone (items[1])
+            Item wood = items[0];
+            Item stone = items.Length > 1 ? items[1] : null;
+
+            for (int i = 0; i < 10; i++)
+                SpawnInventoryItem(wood);
+
+            if (stone != null)
+            {
+                for (int i = 0; i < 10; i++)
+                    SpawnInventoryItem(stone);
+            }
+
+            Debug.Log($"✅ Starting resources added: 10 {wood.itemName}, 10 {(stone != null ? stone.itemName : "none")}");
+            Debug.Log($"📦 After setup: {CountAllItems()} items in inventory.");
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ Inventory 'items' array is empty. Please assign your items (Wood, Stone, etc.) in the Inspector!");
+        }
+    }
+
+    // Spawns an inventory item into the next empty slot
     public void SpawnInventoryItem(Item item = null)
+        {
+    Item _item = item;
+
+    if (_item == null && items.Length > 0)
+        _item = items[Random.Range(0, items.Length)];
+
+    for (int i = 0; i < inventorySlots.Length; i++)
     {
-        Item _item = item;
-
-        // ✅ Only pick a random item if none was passed in
-        if (_item == null)
+        if (inventorySlots[i].myItem == null)
         {
-            int random = Random.Range(0, items.Length);
-            _item = items[random];
-        }
+            var newItem = Instantiate(itemPrefab, inventorySlots[i].transform);
+            newItem.Initialize(_item, inventorySlots[i]);
 
-        for (int i = 0; i < inventorySlots.Length; i++)
-        {
-            if (inventorySlots[i].myItem == null)
-            {
-                Instantiate(itemPrefab, inventorySlots[i].transform).Initialize(_item, inventorySlots[i]);
-                break;
-            }
+            // 👇 Add this right here
+            Debug.Log($"🧱 Spawned {_item.itemName} into slot {i}. myItem set? {inventorySlots[i].myItem != null}");
+            break;
         }
     }
-
-
-    /* public void SpawnInventoryItem(Item item = null)
-    {
-        Item _item = item;
-
-        // ✅ Fix: Only pick a random item if no item was passed in
-        if (_item != null)
-        {
-            int random = Random.Range(0, items.Length);
-            _item = items[random];
-        }
-
-        for (int i = 0; i < inventorySlots.Length; i++)
-        {
-            if (inventorySlots[i].myItem == null)
-            {
-                Instantiate(itemPrefab, inventorySlots[i].transform).Initialize(_item, inventorySlots[i]);
-                //var newItem = Instantiate(itemPrefab, inventorySlots[i].transform);
-                //RectTransform rect = newItem.GetComponent<RectTransform>();
-                //rect.anchoredPosition = Vector2.zero;
-                //rect.offsetMin = Vector2.zero;
-                //rect.offsetMax = Vector2.zero;
-                //rect.localScale = Vector3.one;
-                //newItem.Initialize(_item, inventorySlots[i]);
-                //break;
-            }
-        }
-    }
-        */
-
-    // Start is called before the first frame update
-    //void Start()
-    //{
-
-    //}
-
-    // Update is called once per frame
-    void Update()
-    {
-            if (carriedItem == null) return;
-            carriedItem.transform.position = Input.mousePosition;
     }
 
     public void SetCarriedItem(InventoryItem item)
     {
         if (carriedItem != null)
         {
-            if (item.activeSlot.myTag != SlotTag.None && item.activeSlot.myTag != carriedItem.myItem.itemTag) return;
+            if (item.activeSlot.myTag != SlotTag.None &&
+                item.activeSlot.myTag != carriedItem.myItem.itemTag) return;
             item.activeSlot.SetItem(carriedItem);
         }
 
         if (item.activeSlot.myTag != SlotTag.None)
-        {
             EquipEquipment(item.activeSlot.myTag, null);
-        }
+
         carriedItem = item;
         carriedItem.canvasGroup.blocksRaycasts = false;
         item.transform.SetParent(draggablesTransform);
@@ -136,22 +127,35 @@ public class Inventory : MonoBehaviour
                 break;
         }
     }
-    // Check if player has enough of a specific item (by name)
-    // Check if player has enough of a specific item (by ScriptableObject)
+
+    // ✅ Check if player has enough of a specific item
     public bool HasItem(Item item, int quantity)
     {
-        int count = 0;
-        foreach (var slot in inventorySlots)
+    int count = 0;
+    Debug.Log($"🔍 [HasItem] Checking for: {item.name} (ID: {item.GetInstanceID()})");
+
+    foreach (var slot in inventorySlots)
+    {
+        if (slot.myItem != null)
         {
-            if (slot.myItem != null && slot.myItem.myItem.itemName == item.itemName)
-            {
+            Item slotItem = slot.myItem.myItem;
+            Debug.Log($"   → Slot has {slotItem.name} (ID: {slotItem.GetInstanceID()})");
+
+            // Compare by reference (same object in memory)
+            if (slotItem == item)
                 count++;
-            }
         }
-        return count >= quantity;
+        else
+        {
+            Debug.Log("   → Slot empty");
+        }
     }
 
-    // Remove items from slots
+    Debug.Log($"[HasItem] Result: Found {count}, Need {quantity}");
+    return count >= quantity;
+    }
+
+    // ✅ Remove items from slots
     public void RemoveItem(Item item, int quantity)
     {
         int removed = 0;
@@ -167,7 +171,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // Add crafted item to next available slot
+    // ✅ Add crafted item to next available slot
     public void AddItem(Item item, int quantity)
     {
         for (int i = 0; i < quantity; i++)
@@ -176,53 +180,29 @@ public class Inventory : MonoBehaviour
             {
                 if (inventorySlots[j].myItem == null)
                 {
-                    // Instantiate prefab
                     var newItem = Instantiate(itemPrefab, inventorySlots[j].transform);
-
-                    // ✅ Center and scale properly inside the slot
-                    //RectTransform rect = newItem.GetComponent<RectTransform>();
-                    //rect.anchoredPosition = Vector2.zero;
-                    //rect.offsetMin = Vector2.zero;
-                    //rect.offsetMax = Vector2.zero;
-                    //rect.localScale = Vector3.one;
-
-                    // Initialize item visuals
                     newItem.Initialize(item, inventorySlots[j]);
                     break;
                 }
             }
         }
     }
-    void Start()
+
+    // ✅ Debug helper
+    public int CountAllItems()
     {
-        Debug.Log("🔍 Inventory.Start() has been called!");
-
-        if (items.Length > 0)
+        int count = 0;
+        foreach (var slot in inventorySlots)
         {
-            // Assuming items[0] = Wood, items[1] = Stone
-            Item wood = items[0];
-            Item stone = items.Length > 1 ? items[1] : null;
-
-            // Give 5 Wood
-            for (int i = 0; i < 10; i++)
-            {
-                SpawnInventoryItem(wood);
-            }
-
-            // Give 3 Stone
-            if (stone != null)
-            {
-                for (int i = 0; i < 10; i++)
-                {
-                    SpawnInventoryItem(stone);
-                }
-            }
-
-            Debug.Log("✅ Starting resources added: 10 Wood, 10 Stone");
+            if (slot.myItem != null)
+                count++;
         }
+        return count;
     }
 
-
-
-
+    void Update()
+    {
+        if (carriedItem == null) return;
+        carriedItem.transform.position = Input.mousePosition;
+    }
 }

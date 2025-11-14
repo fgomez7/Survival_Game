@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
+//using System.Threading.Tasks.Dataflow;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -93,7 +95,7 @@ public class Inventory : MonoBehaviour
 
     public void SetCarriedItem(InventoryItem item)
     {
-        if (carriedItem != null )
+        if (carriedItem != null)
         {
             if (item.activeSlot.myTag != SlotTag.None && item.activeSlot.myTag != carriedItem.myItem.itemTag) return;
             item.activeSlot.SetItem(carriedItem);
@@ -106,6 +108,24 @@ public class Inventory : MonoBehaviour
         carriedItem = item;
         carriedItem.canvasGroup.blocksRaycasts = false;
         item.transform.SetParent(draggablesTransform);
+    }
+    
+    public void DropItem( InventoryItem item, Transform playerTransform )
+    {
+        if (item == null)
+        {
+            return;
+        }
+
+        item.activeSlot.myItem = null;
+        Destroy(item.gameObject);
+
+        Item itemData = item.myItem;
+        if ( itemData != null && itemData.worldPrefab != null )
+        {
+            UnityEngine.Vector3 dropPosition = playerTransform.position + playerTransform.right * 1.0f;
+            Instantiate(itemData.worldPrefab, dropPosition, UnityEngine.Quaternion.identity);
+        }
     }
 
     public void EquipEquipment(SlotTag tag, InventoryItem item = null)

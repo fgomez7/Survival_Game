@@ -1,11 +1,18 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem; // needed for InputValue
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 public class TopDownPlayerController : MonoBehaviour
 {
+    // [SerializeField] private Item itemData;
+    // private bool playerInRange = false;
+
+
     public float moveSpeed = 5f;        // movement speed
     private Vector2 moveInput;          // stores WASD input
     private Rigidbody2D rb;             // reference to Rigidbody2D
@@ -56,14 +63,19 @@ public class TopDownPlayerController : MonoBehaviour
         }
         rb.velocity = moveInput * moveSpeed;
 
-        if ( rb.velocity != Vector2.zero)
+        if (rb.velocity != Vector2.zero)
         {
             useStamina(1);
         }
-        else if ( rb.velocity == Vector2.zero) 
+        else if (rb.velocity == Vector2.zero)
         {
             refillStamina(2);
         }
+        // if (playerInRange && Input.GetKeyDown(KeyCode.E))
+        // {
+        //     CollectItem();
+        // }
+
     }
 
     void TakeDamage(int damage)
@@ -81,7 +93,7 @@ public class TopDownPlayerController : MonoBehaviour
         }
     }
 
-    void refillStamina( int stam)
+    void refillStamina(int stam)
     {
         if (currStamina < maxStamina)
         {
@@ -89,4 +101,13 @@ public class TopDownPlayerController : MonoBehaviour
             stamina.SetStamina(currStamina);
         }
     }
+    
+    // private void OnTriggerEnter2D( Collider2D collision )
+    // {
+    //     if (collision.CompareTag("apple"))
+    //     {
+    //         collision.gameObject.SetActive(false);
+    //     }
+    //     Debug.Log($"Collected {itemData.name}");
+    // }
 }

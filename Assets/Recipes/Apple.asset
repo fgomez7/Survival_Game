@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Apple
   sprite: {fileID: -306974805, guid: b728044f29bedbf45951587e4fabc4d2, type: 3}
   itemTag: 0
+  worldPrefab: {fileID: 2144354457424970821, guid: 1eaf1a36638448649aa66c25af94875c, type: 3}

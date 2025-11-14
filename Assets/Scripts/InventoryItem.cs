@@ -56,5 +56,17 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         {
             Inventory.Singleton.SetCarriedItem(this);
         }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                Inventory.Singleton.DropItem(this, player.transform);
+            }
+            else
+            {
+                Debug.LogWarning("Player not found in scene!");
+            }
+        }
     }
 }

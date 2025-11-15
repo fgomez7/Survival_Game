@@ -1,25 +1,24 @@
-# 🏕️ Survival Game
+# Survival Game
 
 A small survival-style Unity game featuring crafting, item collection, inventory management, and basic combat.
 
 ---
 
-## 🎮 Gameplay & Controls
+## Gameplay & Controls
 
-### 🧍 Movement  
+### Movement  
 - **W / A / S / D** – Move the player  
-- **Arrow Keys** – Also works for movement  
 
-### ⚔️ Combat  
+###  Combat  
 - **Spacebar** – Attack with your weapon  
-  (Works with Stick, Sword, Axe, etc.)
+  Right now it only works for sword and you
+  do not need to equip)
 
-### 🎒 Inventory  
-- **Left Click** – Pick up an item and drag it  
-- **Drag & Drop** – Move items around inventory slots  
-- **Right Click** – Drop an item on the ground  
+### Inventory  
+- **Click** – Pick up an item and drag it  
+- **Click Again to Drop** – Move items around inventory slots   
 
-### 🏠 Crafting  
+###  Crafting  
 - Walk near the **house/crafting area**  
 - Press **C** to open the crafting menu  
 - Craftable items include:  
@@ -33,32 +32,11 @@ A small survival-style Unity game featuring crafting, item collection, inventory
 
 ---
 
-## 🪵 Resource Collection
+##  Resource Collection
 
 - Walk up to items in the world  
 - Press **E** to pick them up  
 - Items immediately appear in your inventory  
-
----
-
-## 🧱 Crafting System Overview
-
-- Built using **ScriptableObjects** for item data and recipe data  
-- Easy to add or modify items and crafting recipes  
-- Inventory UI dynamically updates based on current resources  
-- Fully draggable inventory with pickup & drop functionality  
-
----
-
-## 🚀 Features
-
-- ✔️ ScriptableObject-based item system  
-- ✔️ Crafting with live resource checking  
-- ✔️ Drag-and-drop inventory system  
-- ✔️ Item pickup + dropping  
-- ✔️ Player attack system  
-- ✔️ Dynamic resource display  
-- ✔️ Craft buttons enable/disable automatically  
 
 ---
 

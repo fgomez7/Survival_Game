@@ -12,4 +12,4 @@ public class Item : ScriptableObject
     public GameObject worldPrefab;
 }
 
-public enum SlotTag { None, Head, Body, Weapon }
+public enum SlotTag { None, Head, Body, Weapon, Consumable }

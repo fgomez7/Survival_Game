@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections.Concurrent;
 
-public class InventoryItem : MonoBehaviour, IPointerClickHandler
+public class InventoryItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     // Public reference to the icon that we assign in the prefab
     Image itemIcon;
@@ -12,6 +13,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
 
     public Item myItem { get; set; }
     public InventorySlot activeSlot { get; set; }
+
+    private bool isHovered = false;
 
     void Awake()
     {
@@ -67,6 +70,26 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
             {
                 Debug.LogWarning("Player not found in scene!");
             }
+        }
+        //else if (eventData.button == PointerEventData.InputButton.Middle)
+        //{
+
+        //}
+    }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        isHovered = true;
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        isHovered = false;
+    }
+
+    void Update()
+    {
+        if (isHovered && Input.GetKeyDown(KeyCode.R))
+        {
+            Inventory.Singleton.ConsumeItem(this);
         }
     }
 }

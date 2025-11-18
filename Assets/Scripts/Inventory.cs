@@ -20,6 +20,8 @@ public class Inventory : MonoBehaviour
     [Header("Debug")]
     [SerializeField] Button giveItemBtn;
 
+    public HungerBar hunger;
+
     void Awake()
     {
         Debug.Log($"[Inventory] Awake on: {gameObject.name}");
@@ -118,6 +120,28 @@ public class Inventory : MonoBehaviour
             UnityEngine.Vector3 dropPosition = playerTransform.position + playerTransform.right * 1.0f;
             Instantiate(itemData.worldPrefab, dropPosition, UnityEngine.Quaternion.identity);
         }
+    }
+
+    public void ConsumeItem(InventoryItem item)
+    {
+        if (item == null)
+        {
+            return;
+        }
+
+        item.activeSlot.myItem = null;
+        Item itemData = item.myItem;
+
+        if (itemData == null || itemData.itemTag != SlotTag.Consumable)
+        {
+            Debug.LogWarning("Tried to consume a non-consumable item.");
+            return;
+        }
+
+        hunger.SetHunger(hunger.returnCurrHunger() + 5);
+
+        Destroy(item.gameObject);
+
     }
 
     public void EquipEquipment(SlotTag tag, InventoryItem item = null)

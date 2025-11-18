@@ -31,6 +31,7 @@ public class CraftingMenuUI : MonoBehaviour
 
     private void Start()
     {
+        UpdateResourceDisplay();
         craftStickButton.onClick.AddListener(() => TryCraft(availableRecipes[0]));
         craftBoxButton.onClick.AddListener(() => TryCraft(availableRecipes[1]));
         craftSwordButton.onClick.AddListener(() => TryCraft(availableRecipes[2]));

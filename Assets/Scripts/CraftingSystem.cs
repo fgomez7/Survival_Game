@@ -1,15 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class CraftingSystem : MonoBehaviour
 {
-    [Header("Recipe & Inventory Links")]
+    [Header("Recipes & Inventory")]
     public List<RecipeData> availableRecipes;
-    public Inventory inventory; // Reference to the real Inventory on InventoryScreen
-
-    [Header("World Drop Settings")]
-    public Transform dropPoint; // Where crafted items appear (drag a Transform near the house)
+    public Inventory inventory;  // Reference to the real Inventory on InventoryScreen
 
     public bool Craft(RecipeData recipe)
     {
@@ -25,33 +21,23 @@ public class CraftingSystem : MonoBehaviour
             return false;
         }
 
-        if (CanCraft(recipe))
-        {
-            // ✅ Remove required materials
-            if (recipe.requiredItem1 != null && recipe.requiredAmount1 > 0)
-                inventory.RemoveItem(recipe.requiredItem1, recipe.requiredAmount1);
+        // Check if player can craft this
+        if (!CanCraft(recipe))
+            return false;
 
-            if (recipe.requiredItem2 != null && recipe.requiredAmount2 > 0)
-                inventory.RemoveItem(recipe.requiredItem2, recipe.requiredAmount2);
+        // 🔹 Remove first required item
+        if (recipe.requiredItem1 != null && recipe.requiredAmount1 > 0)
+            inventory.RemoveItem(recipe.requiredItem1, recipe.requiredAmount1);
 
+        // 🔹 Remove second required item
+        if (recipe.requiredItem2 != null && recipe.requiredAmount2 > 0)
+            inventory.RemoveItem(recipe.requiredItem2, recipe.requiredAmount2);
 
-            // ✅ Spawn prefab in world (next to house)
-            if (recipe.outputItemPrefab != null)
-            {
-                Vector3 spawnPos = dropPoint != null ? dropPoint.position : transform.position;
-                GameObject newItem = Instantiate(recipe.outputItemPrefab, spawnPos, Quaternion.identity);
-                Debug.Log($"🌲 Crafted {recipe.outputItem.name} and spawned in world at {spawnPos}");
-            }
-            else
-            {
-                Debug.Log($"🪓 Crafted {recipe.outputItem.name} (no prefab to spawn)");
-            }
+        // 🔹 CraftingSystem NO LONGER spawns world items
+        //     UI (CraftingMenuUI) handles all world spawning visuals
 
-            return true;
-        }
-
-        Debug.Log($"⚠️ Not enough resources to craft {recipe.recipeName}");
-        return false;
+        Debug.Log($"✔ Crafted: {recipe.outputItem.name}");
+        return true;
     }
 
     private bool CanCraft(RecipeData recipe)

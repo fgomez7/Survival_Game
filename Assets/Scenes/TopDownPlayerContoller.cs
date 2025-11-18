@@ -1,33 +1,30 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem; // needed for InputValue
+using UnityEngine.InputSystem;
 using System.Collections;
-using System.Collections.Generic;
-using System.Net;
-using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 
 public class TopDownPlayerController : MonoBehaviour
 {
-    // [SerializeField] private Item itemData;
-    // private bool playerInRange = false;
+    [Header("Movement")]
+    public float moveSpeed = 5f;
+    private Vector2 moveInput;
+    private Rigidbody2D rb;
 
-
-    public float moveSpeed = 5f;        // movement speed
-    public float sprintSpeed = 10f;
-    private float currentSpeed;
-    private Vector2 moveInput;          // stores WASD input
-    private Rigidbody2D rb;             // reference to Rigidbody2D
-    //__________________________________________________________________________
+    [Header("Health & Stamina")]
     public HealthBar healthBar;
     public int maxHealth = 100;
     public int currHealth;
     public StaminaBar stamina;
     public int maxStamina = 100;
     public int currStamina = 100;
-    public HungerBar hunger;
-    public int currHunger = 100;
-    public int maxHunger = 100;
+
+    [Header("Attack Settings")]
+    public GameObject attackHitbox;
+    public float attackActiveTime = 0.2f;
+
+    private bool isAttacking = false;
+    private Animator animator;
 
     void Start()
     {
@@ -37,20 +34,11 @@ public class TopDownPlayerController : MonoBehaviour
         currStamina = maxStamina;
         stamina.SetMaxStamina(maxStamina);
 
-        currHunger = maxHunger;
-        hunger.SetMaxHunger(maxHunger);
+        animator = GetComponent<Animator>();
 
-        currentSpeed = moveSpeed;
-        //____________CLOCK__________
-        GlobalClock.Instance.OnTick += OnClockTick;
-    }
-
-    private void OnDestroy() { 
-        GlobalClock.Instance.OnTick -= OnClockTick;
-    }
-    void OnClockTick() {
-        useHunger(1);
-        Debug.Log("Tick recieved");
+        // Ensure hitbox is OFF at the start
+        if (attackHitbox != null)
+            attackHitbox.SetActive(false);
     }
 
     private void Awake()
@@ -58,75 +46,76 @@ public class TopDownPlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // This function is automatically called by the PlayerInput component
+    // === MOVEMENT INPUT ===
     void OnMove(InputValue value)
     {
-        //testing damage
         moveInput = value.Get<Vector2>();
-        if ( moveInput.y > 0) //up arrow 
+
+        // Testing damage (your old debug)
+        if (moveInput.y > 0)
         {
             TakeDamage(5);
         }
-        //if (currStamina > 0 & moveInput != Vector2.zero) {
-        //    useStamina(1);
-        //} else if ( moveInput == Vector2.zero )
-        //{
-        //    refillStamina(2);
-        //}
+    }
+
+    // === ATTACK INPUT ===
+    void OnAttack(InputValue value)
+    {
+        if (!isAttacking)
+            StartCoroutine(DoAttack());
+    }
+
+    private IEnumerator DoAttack()
+    {
+        isAttacking = true;
+
+        // play attack animation if you have one
+        if (animator != null)
+            animator.SetTrigger("Attack");
+
+        // enable hitbox
+        if (attackHitbox != null)
+            attackHitbox.SetActive(true);
+
+        yield return new WaitForSeconds(attackActiveTime);
+
+        // disable hitbox
+        if (attackHitbox != null)
+            attackHitbox.SetActive(false);
+
+        isAttacking = false;
     }
 
     private void FixedUpdate()
     {
-        // Apply movement every physics frame
-        //if (currStamina > 0)
-        //{
-        //    rb.velocity = 2 * moveInput * moveSpeed;
-        //}
-        //rb.velocity = moveInput * moveSpeed;
-
-        //if (rb.velocity != Vector2.zero)
-        //{
-        //    useStamina(1);
-        //}
-        //else if (rb.velocity == Vector2.zero)
-        //{
-        //    refillStamina(2);
-        //}
-
-        // if (playerInRange && Input.GetKeyDown(KeyCode.E))
-        // {
-        //     CollectItem();
-        // }
-        //_________________________________________________________
-        if (moveInput != Vector2.zero)
+        // Movement AND stamina logic
+        if (currStamina > 0)
         {
-            if (currStamina > 0)
-            {
-                useStamina(1);
-                currentSpeed = sprintSpeed;
-            } else
-            {
-                currentSpeed = moveSpeed;
-            }
-        } else
+            rb.velocity = 2 * moveInput * moveSpeed;
+        }
+        rb.velocity = moveInput * moveSpeed;
+
+        if (rb.velocity != Vector2.zero)
+        {
+            useStamina(1);
+        }
+        else
         {
             refillStamina(2);
-            currentSpeed = moveSpeed;
         }
-        rb.velocity = moveInput * currentSpeed;
     }
 
+    // === HEALTH ===
     void TakeDamage(int damage)
     {
         currHealth -= damage;
-        healthBar.SetHealth(currHealth); 
-        //currHunger -= damage;
-        //hunger.SetHunger(currHunger);
+        healthBar.SetHealth(currHealth);
     }
 
+    // === STAMINA ===
     void useStamina(int stam)
     {
-        if ( currStamina > 0)
+        if (currStamina > 0)
         {
             currStamina -= stam;
             stamina.SetStamina(currStamina);
@@ -141,27 +130,4 @@ public class TopDownPlayerController : MonoBehaviour
             stamina.SetStamina(currStamina);
         }
     }
-
-    void useHunger(int hun)
-    {
-        if (currHunger >0)
-        {   
-            currHunger -= hun;
-            currHunger = Mathf.Clamp(currHunger, 0, maxHunger);
-            hunger.SetHunger(currHunger);
-        }
-        if (currHunger == 0)
-        {
-            TakeDamage(1);
-        }
-    }
-    
-    // private void OnTriggerEnter2D( Collider2D collision )
-    // {
-    //     if (collision.CompareTag("apple"))
-    //     {
-    //         collision.gameObject.SetActive(false);
-    //     }
-    //     Debug.Log($"Collected {itemData.name}");
-    // }
 }

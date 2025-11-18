@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class CraftingSystem : MonoBehaviour
 {
@@ -33,8 +34,6 @@ public class CraftingSystem : MonoBehaviour
             if (recipe.requiredItem2 != null && recipe.requiredAmount2 > 0)
                 inventory.RemoveItem(recipe.requiredItem2, recipe.requiredAmount2);
 
-            // ✅ Add crafted item to inventory
-            inventory.AddItem(recipe.outputItem, 1);
 
             // ✅ Spawn prefab in world (next to house)
             if (recipe.outputItemPrefab != null)

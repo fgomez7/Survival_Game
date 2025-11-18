@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3853e7087fa35e149b7c687ba239d433, type: 3}
-  m_Name: New Item
+  m_Script: {fileID: 11500000, guid: 39ec20dd39552834cb038cb9a99c350a, type: 3}
+  m_Name: Stone Box
   m_EditorClassIdentifier: 
-  itemName: 
-  icon: {fileID: 0}
-  isConsumable: 0
+  itemName: Stone Box
+  sprite: {fileID: 1878818081, guid: 78455728979da9b4da2127b7b4008685, type: 3}
+  itemTag: 0
+  worldPrefab: {fileID: 0}

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: WoodToAxe
   m_EditorClassIdentifier: 
   recipeName: WoodToAxe
-  requiredItem1: {fileID: 11400000, guid: 7b5acade9a6508b4a97b50f5fc1dcc7b, type: 2}
+  requiredItem1: {fileID: 11400000, guid: 1e3f675ea6e585b4c9d3ebc20dab2f4e, type: 2}
   requiredAmount1: 3
   requiredItem2: {fileID: 11400000, guid: 58d6bb265d6047a42971074ba6f9992c, type: 2}
   requiredAmount2: 3
   outputItem: {fileID: 11400000, guid: d8b5c89732368b54680357fc869ecb5d, type: 2}
-  outputItemPrefab: {fileID: 2493532888007758141, guid: 065bd8b970bcb4e9c81e3550104de7f1, type: 3}
+  outputItemPrefab: {fileID: 1766617961780270262, guid: e10c7fc2f2127694893fdb7361e4665a, type: 3}

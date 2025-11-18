@@ -24,17 +24,19 @@ public class Inventory : MonoBehaviour
 
     void Awake()
     {
-    Singleton = this;
+        Debug.Log($"[Inventory] Awake on: {gameObject.name}");
 
-    // 🔧 Automatically find all InventorySlot components under this Inventory object
-    if (inventorySlots == null || inventorySlots.Length == 0)
-    {
-        inventorySlots = GetComponentsInChildren<InventorySlot>(true);
-        Debug.Log($"[Inventory] Auto-linked {inventorySlots.Length} inventory slots.");
+        Singleton = this;
+
+        if (inventorySlots == null || inventorySlots.Length == 0)
+        {
+            inventorySlots = GetComponentsInChildren<InventorySlot>(true);
+            Debug.Log($"[Inventory] Auto-linked {inventorySlots.Length} inventory slots on {gameObject.name}");
+        }
+
+        giveItemBtn.onClick.AddListener(delegate { SpawnInventoryItem(); });
     }
 
-    giveItemBtn.onClick.AddListener(delegate { SpawnInventoryItem(); });
-    }
 
     void Start()
     {
@@ -42,7 +44,6 @@ public class Inventory : MonoBehaviour
 
         if (items != null && items.Length > 0)
         {
-            // Give 10 Wood (items[0]) and 10 Stone (items[1])
             Item wood = items[0];
             Item stone = items.Length > 1 ? items[1] : null;
 
@@ -55,14 +56,14 @@ public class Inventory : MonoBehaviour
                     SpawnInventoryItem(stone);
             }
 
-            Debug.Log($"✅ Starting resources added: 10 {wood.itemName}, 10 {(stone != null ? stone.itemName : "none")}");
-            Debug.Log($"📦 After setup: {CountAllItems()} items in inventory.");
+            Debug.Log($"Starting resources added: 10 {wood.itemName}, 10 {(stone != null ? stone.itemName : "none")}");
+            Debug.Log($"After setup: {CountAllItems()} items in inventory.");
         }
-        else
-        {
-            Debug.LogWarning("⚠️ Inventory 'items' array is empty. Please assign your items (Wood, Stone, etc.) in the Inspector!");
-        }
+
+        // ⭐ FIX: Refresh crafting UI AFTER items have been spawned
+        FindObjectOfType<CraftingMenuUI>()?.UpdateResourceDisplay();
     }
+
 
     // Spawns an inventory item into the next empty slot
     public void SpawnInventoryItem(Item item = null)
@@ -178,6 +179,23 @@ public class Inventory : MonoBehaviour
     Debug.Log($"[HasItem] Result: Found {count}, Need {quantity}");
     return count >= quantity;
     }
+    // ✅ Returns how many of a specific Item the player has
+    public int GetItemCount(Item item)
+    {
+        int count = 0;
+
+        foreach (var slot in inventorySlots)
+        {
+            if (slot.myItem != null && slot.myItem.myItem == item)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+
 
     // ✅ Remove items from slots
     public void RemoveItem(Item item, int quantity)
@@ -229,4 +247,9 @@ public class Inventory : MonoBehaviour
         if (carriedItem == null) return;
         carriedItem.transform.position = Input.mousePosition;
     }
+    public Item GetItemAsset(int index)
+    {
+        return items[index];
+    }
+
 }

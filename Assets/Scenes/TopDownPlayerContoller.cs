@@ -1,23 +1,31 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem; // needed for InputValue
 using System.Collections;
+using System.Collections.Generic;
+using System.Net;
+using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 
 public class TopDownPlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 5f;
+    public float sprintSpeed = 10f;
+    private float currentSpeed;
     private Vector2 moveInput;
     private Rigidbody2D rb;
 
-    [Header("Health & Stamina")]
+    [Header("Health - Stamina - Hunger")]
     public HealthBar healthBar;
     public int maxHealth = 100;
     public int currHealth;
     public StaminaBar stamina;
     public int maxStamina = 100;
     public int currStamina = 100;
+    public HungerBar hunger;
+    public int currHunger = 100;
+    public int maxHunger = 100;
 
     [Header("Attack Settings")]
     public GameObject attackHitbox;
@@ -34,11 +42,28 @@ public class TopDownPlayerController : MonoBehaviour
         currStamina = maxStamina;
         stamina.SetMaxStamina(maxStamina);
 
+        currHunger = maxHunger;
+        hunger.SetMaxHunger(maxHunger);
+
+        currentSpeed = moveSpeed;
+        //____________CLOCK__________
+        GlobalClock.Instance.OnTick += OnClockTick;
+
         animator = GetComponent<Animator>();
 
         // Ensure hitbox is OFF at the start
         if (attackHitbox != null)
             attackHitbox.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        GlobalClock.Instance.OnTick -= OnClockTick;
+    }
+    void OnClockTick()
+    {
+        useHunger(1);
+        Debug.Log("Tick recieved");
     }
 
     private void Awake()
@@ -88,21 +113,24 @@ public class TopDownPlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Movement AND stamina logic
-        if (currStamina > 0)
+        if (moveInput != Vector2.zero)
         {
-            rb.velocity = 2 * moveInput * moveSpeed;
-        }
-        rb.velocity = moveInput * moveSpeed;
-
-        if (rb.velocity != Vector2.zero)
-        {
-            useStamina(1);
+            if (currStamina > 0)
+            {
+                useStamina(1);
+                currentSpeed = sprintSpeed;
+            }
+            else
+            {
+                currentSpeed = moveSpeed;
+            }
         }
         else
         {
             refillStamina(2);
+            currentSpeed = moveSpeed;
         }
+        rb.velocity = moveInput * currentSpeed;
     }
 
     // === HEALTH ===
@@ -110,6 +138,8 @@ public class TopDownPlayerController : MonoBehaviour
     {
         currHealth -= damage;
         healthBar.SetHealth(currHealth);
+        //currHunger -= damage;
+        //hunger.SetHunger(currHunger);
     }
 
     // === STAMINA ===
@@ -128,6 +158,20 @@ public class TopDownPlayerController : MonoBehaviour
         {
             currStamina += stam;
             stamina.SetStamina(currStamina);
+        }
+    }
+
+    void useHunger(int hun)
+    {
+        if (currHunger > 0)
+        {
+            currHunger -= hun;
+            currHunger = Mathf.Clamp(currHunger, 0, maxHunger);
+            hunger.SetHunger(currHunger);
+        }
+        if (currHunger == 0)
+        {
+            TakeDamage(1);
         }
     }
 }

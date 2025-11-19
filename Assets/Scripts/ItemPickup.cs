@@ -103,6 +103,11 @@ public class ItemPickup : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // for (int i = 0; i < Inventory.Singleton.inventorySlots.Length; i++)
+        // {
+        //     if (Inventory.Singleton.inventorySlots[i].myItem == null)
+        // }
+
         //if (promptUI != null)
         //{
         //    promptUI.SetActive(false);

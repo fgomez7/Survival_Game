@@ -42016,12 +42016,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  sprintSpeed: 10
   healthBar: {fileID: 2108009158}
   maxHealth: 100
   currHealth: 0
   stamina: {fileID: 163460261}
   maxStamina: 100
   currStamina: 100
+  hunger: {fileID: 2003607536}
+  currHunger: 100
+  maxHunger: 100
   attackHitbox: {fileID: 299008270}
   attackActiveTime: 0.2
 --- !u!95 &1453326818
@@ -62767,6 +62771,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -7817350984555348410, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: m_CellSize.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -7817350984555348410, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: m_CellSize.y
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots

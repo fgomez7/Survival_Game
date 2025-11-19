@@ -67,38 +67,40 @@ public class Inventory : MonoBehaviour
 
     // Spawns an inventory item into the next empty slot
     public void SpawnInventoryItem(Item item = null)
-        {
-    Item _item = item;
-
-    if (_item == null && items.Length > 0)
-        _item = items[Random.Range(0, items.Length)];
-
-    for (int i = 0; i < inventorySlots.Length; i++)
     {
-        if (inventorySlots[i].myItem == null)
-        {
-            var newItem = Instantiate(itemPrefab, inventorySlots[i].transform);
-            newItem.Initialize(_item, inventorySlots[i]);
+        Item _item = item;
 
-            // 👇 Add this right here
-            Debug.Log($"🧱 Spawned {_item.itemName} into slot {i}. myItem set? {inventorySlots[i].myItem != null}");
-            break;
+        if (_item == null && items.Length > 0)
+            _item = items[Random.Range(0, items.Length)];
+
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            if (inventorySlots[i].myItem == null)
+            {
+                //Debug.Log($"{inventorySlots[i].myItem == null}");
+                var newItem = Instantiate(itemPrefab, inventorySlots[i].transform);
+                newItem.Initialize(_item, inventorySlots[i]);
+
+                // // 👇 Add this right here
+                Debug.Log($"Spawned {_item.itemName} into slot {i}. myItem set? {inventorySlots[i].myItem != null}");
+                break;
+                // Instantiate(itemPrefab, inventorySlots[i].transform).Initialize(_item, inventorySlots[i]);
+                // break;
+            }
         }
-    }
     }
 
     public void SetCarriedItem(InventoryItem item)
     {
         if (carriedItem != null)
         {
-            if (item.activeSlot.myTag != SlotTag.None &&
-                item.activeSlot.myTag != carriedItem.myItem.itemTag) return;
+            if (item.activeSlot.myTag != SlotTag.None && item.activeSlot.myTag != carriedItem.myItem.itemTag) return;
             item.activeSlot.SetItem(carriedItem);
         }
 
-        if (item.activeSlot.myTag != SlotTag.None)
-            EquipEquipment(item.activeSlot.myTag, null);
-
+        //if (item.activeSlot.myTag != SlotTag.None){
+        //    EquipEquipment(item.activeSlot.myTag, null);
+        //}
         carriedItem = item;
         carriedItem.canvasGroup.blocksRaycasts = false;
         item.transform.SetParent(draggablesTransform);

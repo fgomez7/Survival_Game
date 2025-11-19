@@ -138,7 +138,8 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        hunger.SetHunger(hunger.returnCurrHunger() + 5);
+        //hunger.SetHunger(hunger.returnCurrHunger() + 5);
+        hunger.updateHunger(5);
 
         Destroy(item.gameObject);
 

@@ -62,7 +62,8 @@ public class TopDownPlayerController : MonoBehaviour
     }
     void OnClockTick()
     {
-        useHunger(1);
+        //useHunger(-1);
+        hunger.updateHunger(-1);
         Debug.Log("Tick recieved");
     }
 
@@ -113,6 +114,9 @@ public class TopDownPlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //When moving, stamina is used and player moves 2x sspeed
+        //when stamina depleted, player moves default speed
+        //when player is not moving and stamina depleted, bar refills
         if (moveInput != Vector2.zero)
         {
             if (currStamina > 0)
@@ -131,6 +135,10 @@ public class TopDownPlayerController : MonoBehaviour
             currentSpeed = moveSpeed;
         }
         rb.velocity = moveInput * currentSpeed;
+        if (hunger.returnCurrHunger() == 0)
+        {
+            TakeDamage(1);
+        }
     }
 
     // === HEALTH ===
@@ -165,9 +173,10 @@ public class TopDownPlayerController : MonoBehaviour
     {
         if (currHunger > 0)
         {
-            currHunger -= hun;
-            currHunger = Mathf.Clamp(currHunger, 0, maxHunger);
-            hunger.SetHunger(currHunger);
+            //currHunger -= hun;
+            //currHunger = Mathf.Clamp(currHunger, 0, maxHunger);
+            //hunger.SetHunger(currHunger);
+            //hunger.updateHunger(hun);
         }
         if (currHunger == 0)
         {

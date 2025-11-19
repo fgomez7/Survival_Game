@@ -24,8 +24,8 @@ public class TopDownPlayerController : MonoBehaviour
     public int maxStamina = 100;
     public int currStamina = 100;
     public HungerBar hunger;
-    public int currHunger = 100;
-    public int maxHunger = 100;
+    public int currHunger = 20;
+    public int maxHunger = 20;
 
     [Header("Attack Settings")]
     public GameObject attackHitbox;
@@ -64,7 +64,11 @@ public class TopDownPlayerController : MonoBehaviour
     {
         //useHunger(-1);
         hunger.updateHunger(-1);
-        Debug.Log("Tick recieved");
+        //Debug.Log("Tick recieved");
+        if (hunger.returnCurrHunger() == 0 && healthBar.returnCurrHealth() > 20)
+        {
+            healthBar.UpdateHealth(-1);
+        }
     }
 
     private void Awake()
@@ -135,10 +139,6 @@ public class TopDownPlayerController : MonoBehaviour
             currentSpeed = moveSpeed;
         }
         rb.velocity = moveInput * currentSpeed;
-        if (hunger.returnCurrHunger() == 0)
-        {
-            TakeDamage(1);
-        }
     }
 
     // === HEALTH ===
@@ -166,21 +166,6 @@ public class TopDownPlayerController : MonoBehaviour
         {
             currStamina += stam;
             stamina.SetStamina(currStamina);
-        }
-    }
-
-    void useHunger(int hun)
-    {
-        if (currHunger > 0)
-        {
-            //currHunger -= hun;
-            //currHunger = Mathf.Clamp(currHunger, 0, maxHunger);
-            //hunger.SetHunger(currHunger);
-            //hunger.updateHunger(hun);
-        }
-        if (currHunger == 0)
-        {
-            TakeDamage(1);
         }
     }
 }

@@ -18,6 +18,14 @@ public class HealthBar : MonoBehaviour
         slider.value = health;
     }
 
+    public void UpdateHealth( int health)
+    {
+        if ( slider.value > 0)
+        {
+            slider.value += health;
+        }
+    }
+
     public int returnCurrHealth()
     {
         return (int)slider.value;

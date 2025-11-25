@@ -22,10 +22,7 @@ public class HungerBar : MonoBehaviour
 
     public void updateHunger(int hunger)
     {
-        if (slider.value > 0)
-        {
-            slider.value += hunger;
-        }
+        slider.value = Mathf.Clamp(slider.value + hunger, 0, 100);
     }
 
     public int returnCurrHunger()

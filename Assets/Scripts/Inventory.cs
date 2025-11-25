@@ -141,7 +141,7 @@ public class Inventory : MonoBehaviour
         }
 
         //hunger.SetHunger(hunger.returnCurrHunger() + 5);
-        hunger.updateHunger(5);
+        hunger.updateHunger(33);
 
         Destroy(item.gameObject);
 
@@ -253,6 +253,19 @@ public class Inventory : MonoBehaviour
     public Item GetItemAsset(int index)
     {
         return items[index];
+    }
+
+    public InventorySlot[] HotbarSlots
+    {
+        get {
+            InventorySlot[] result = new InventorySlot[7];
+            int hotbarStart = 21; //where hot bar starts
+            for (int i = 0; i < 7; i++)
+            {
+                result[i] = inventorySlots[hotbarStart + i];
+            }
+            return result;
+        }
     }
 
 }

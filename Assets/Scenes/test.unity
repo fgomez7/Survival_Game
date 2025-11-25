@@ -41834,6 +41834,8 @@ GameObject:
   - component: {fileID: 1453326820}
   - component: {fileID: 1453326821}
   - component: {fileID: 1453326822}
+  - component: {fileID: 1453326824}
+  - component: {fileID: 1453326823}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -42102,6 +42104,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryPanel: {fileID: 1183005919}
+--- !u!114 &1453326823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453326811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec1ffbdba27c684eb815f370e510840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handTransform: {fileID: 0}
+--- !u!114 &1453326824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453326811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69a35016fb88cb248b58c1bf931388dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedIndex: 0
 --- !u!1 &1456953611
 GameObject:
   m_ObjectHideFlags: 0

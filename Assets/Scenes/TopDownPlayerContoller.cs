@@ -24,8 +24,8 @@ public class TopDownPlayerController : MonoBehaviour
     public int maxStamina = 100;
     public int currStamina = 100;
     public HungerBar hunger;
-    public int currHunger = 20;
-    public int maxHunger = 20;
+    public int currHunger = 100;
+    public int maxHunger = 100;
 
     [Header("Attack Settings")]
     public GameObject attackHitbox;
@@ -65,9 +65,13 @@ public class TopDownPlayerController : MonoBehaviour
         //useHunger(-1);
         hunger.updateHunger(-1);
         //Debug.Log("Tick recieved");
+
         if (hunger.returnCurrHunger() == 0 && healthBar.returnCurrHealth() > 20)
         {
             healthBar.UpdateHealth(-1);
+        } else if (hunger.returnCurrHunger() > 50)
+        {
+            healthBar.UpdateHealth(3);
         }
     }
 

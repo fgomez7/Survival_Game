@@ -20,10 +20,11 @@ public class HealthBar : MonoBehaviour
 
     public void UpdateHealth( int health)
     {
-        if ( slider.value > 0)
-        {
-            slider.value += health;
-        }
+        //if ( slider.value > 0 && slider.value < 100)
+        //{
+        //    slider.value += health;
+        //}
+        slider.value = Mathf.Clamp(slider.value + health, 0, 100);
     }
 
     public int returnCurrHealth()

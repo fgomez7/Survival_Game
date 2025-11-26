@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
     public InventoryItem myItem { get; set; }
     public SlotTag myTag;
+    public Image backgroundImage;
 
+    void Awake()
+    {
+        this.SetHighlight(false);
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
         if (Inventory.carriedItem == null) return;
@@ -44,6 +50,18 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
             Inventory.Singleton.EquipEquipment(myTag, myItem);
         }
 
+    }
+
+    public void SetHighlight(bool isActive)
+    {
+        if (backgroundImage == null)
+        {
+            return;
+        }
+
+        backgroundImage.color = isActive
+            ? new Color(1f, 1f, 1f, 1f)
+            : new Color(1f, 1f, 1f, 0.1f);
     }
 
     //// Start is called before the first frame update

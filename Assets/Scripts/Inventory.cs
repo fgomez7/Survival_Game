@@ -98,6 +98,10 @@ public class Inventory : MonoBehaviour
         {
             if (item.activeSlot.myTag != SlotTag.None && item.activeSlot.myTag != carriedItem.myItem.itemTag) return;
             item.activeSlot.SetItem(carriedItem);
+            carriedItem = item;
+            carriedItem.canvasGroup.blocksRaycasts = false;
+            item.transform.SetParent(draggablesTransform);
+            return;
         }
 
         //if (item.activeSlot.myTag != SlotTag.None){
@@ -106,6 +110,7 @@ public class Inventory : MonoBehaviour
         carriedItem = item;
         carriedItem.canvasGroup.blocksRaycasts = false;
         item.transform.SetParent(draggablesTransform);
+        carriedItem.activeSlot.SetHighlight(false);
     }
     
     public void DropItem( InventoryItem item, Transform playerTransform )
@@ -115,6 +120,7 @@ public class Inventory : MonoBehaviour
             return;
         }
 
+        item.activeSlot.SetHighlight(false);
         item.activeSlot.myItem = null;
         Destroy(item.gameObject);
 
@@ -133,6 +139,7 @@ public class Inventory : MonoBehaviour
             return;
         }
 
+        item.activeSlot.SetHighlight(false);
         item.activeSlot.myItem = null;
         Item itemData = item.myItem;
 

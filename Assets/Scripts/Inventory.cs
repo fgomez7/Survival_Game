@@ -121,6 +121,7 @@ public class Inventory : MonoBehaviour
         }
 
         item.activeSlot.SetHighlight(false);
+        //ItemEquipper.Singleton.ResetEquipped();
         item.activeSlot.myItem = null;
         Destroy(item.gameObject);
 
@@ -139,20 +140,21 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        item.activeSlot.SetHighlight(false);
-        item.activeSlot.myItem = null;
         Item itemData = item.myItem;
-
         if (itemData == null || itemData.itemTag != SlotTag.Consumable)
         {
             Debug.LogWarning("Tried to consume a non-consumable item.");
             return;
         }
+        item.activeSlot.SetHighlight(false);
+        //ItemEquipper.Singleton.ResetEquipped();
+        item.activeSlot.myItem = null;
+
+        Destroy(item.gameObject);
 
         //hunger.SetHunger(hunger.returnCurrHunger() + 5);
         hunger.updateHunger(33);
 
-        Destroy(item.gameObject);
 
     }
 

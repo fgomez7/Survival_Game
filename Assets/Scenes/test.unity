@@ -42153,7 +42153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handTransform: {fileID: 0}
-  itemData: {fileID: 0}
+  animator: {fileID: 1453326818}
 --- !u!114 &1453326824
 MonoBehaviour:
   m_ObjectHideFlags: 0

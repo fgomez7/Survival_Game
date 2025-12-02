@@ -26,10 +26,15 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetFloat("LastMoveX", lastMoveDir.x);
         animator.SetFloat("LastMoveY", lastMoveDir.y);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            animator.ResetTrigger("Attack");
-            animator.SetTrigger("Attack");
+            Item equipped = ItemEquipper.Singleton.CurrentEquippedItem();
+
+            if (equipped != null && equipped.itemTag == SlotTag.Weapon)
+            {
+                animator.ResetTrigger("Attack");
+                animator.SetTrigger("Attack");
+            }
         }
 
     }

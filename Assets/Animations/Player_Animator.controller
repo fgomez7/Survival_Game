@@ -41,6 +41,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 4
     m_ConditionEvent: LastMoveX
     m_EventTreshold: -0.5
+  - m_ConditionMode: 1
+    m_ConditionEvent: HasWeapon
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8152132234697848808}
   m_Solo: 0
@@ -252,19 +255,19 @@ AnimatorStateMachine:
     m_Position: {x: 470, y: 20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2735972397469913368}
-    m_Position: {x: 440, y: 140, z: 0}
+    m_Position: {x: 310, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4579748491038412969}
     m_Position: {x: 710, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5314110515634275838}
-    m_Position: {x: 440, y: -110, z: 0}
+    m_Position: {x: 310, y: -150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8682864778998354493}
     m_Position: {x: 210, y: 20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4986921851304368505}
-    m_Position: {x: 450, y: 270, z: 0}
+    m_Position: {x: 500, y: 270, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4534030178563422274}
     m_Position: {x: 460, y: -210, z: 0}
@@ -348,6 +351,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 4
     m_ConditionEvent: LastMoveY
     m_EventTreshold: -0.5
+  - m_ConditionMode: 1
+    m_ConditionEvent: HasWeapon
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4534030178563422274}
   m_Solo: 0
@@ -371,6 +377,12 @@ AnimatorController:
   m_Name: Player_Animator
   serializedVersion: 5
   m_AnimatorParameters:
+  - m_Name: HasWeapon
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   - m_Name: MoveX
     m_Type: 1
     m_DefaultFloat: 0
@@ -550,6 +562,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 3
     m_ConditionEvent: LastMoveX
     m_EventTreshold: 0.5
+  - m_ConditionMode: 1
+    m_ConditionEvent: HasWeapon
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 638824535442018753}
   m_Solo: 0
@@ -759,6 +774,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 3
     m_ConditionEvent: LastMoveY
     m_EventTreshold: 0.5
+  - m_ConditionMode: 1
+    m_ConditionEvent: HasWeapon
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4986921851304368505}
   m_Solo: 0
@@ -796,7 +814,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 1a056cbc2c55508448520ac59e690f2e, type: 2}
   m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
+  m_SpeedParameter: MoveX
+  m_MirrorParameter: IsMoving
+  m_CycleOffsetParameter: MoveX
+  m_TimeParameter: MoveX

@@ -91,5 +91,13 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         {
             Inventory.Singleton.ConsumeItem(this);
         }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            InventorySlot currslot = ItemEquipper.Singleton.CurrentSlot();
+            if (currslot != null && currslot == this.activeSlot)
+            {
+                Inventory.Singleton.ConsumeItem(this);
+            }
+        }
     }
 }

@@ -33934,6 +33934,8 @@ MonoBehaviour:
   items:
   - {fileID: 11400000, guid: 1e3f675ea6e585b4c9d3ebc20dab2f4e, type: 2}
   - {fileID: 11400000, guid: 58d6bb265d6047a42971074ba6f9992c, type: 2}
+  - {fileID: 11400000, guid: 8c7d0463f742f894a81f34d8a0ca4a61, type: 2}
+  - {fileID: 11400000, guid: 7b5acade9a6508b4a97b50f5fc1dcc7b, type: 2}
   giveItemBtn: {fileID: 928798491}
   hunger: {fileID: 2003607536}
   hotbarslots:

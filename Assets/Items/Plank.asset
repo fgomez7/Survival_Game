@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Plank
   sprite: {fileID: 21300000, guid: b54c9c655c0f3314b9926bad5524cb8e, type: 3}
   itemTag: 0
+  worldPrefab: {fileID: 2208882335616104547, guid: 9cbbb00863fb2438bac9ddd345344c37, type: 3}

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4812984015636570695}
   - component: {fileID: 7139759065842328171}
   - component: {fileID: 5657470181140817962}
-  - component: {fileID: 8480726415101040666}
   - component: {fileID: -1736159266623158535}
+  - component: {fileID: 5709781827419315140}
   m_Layer: 0
   m_Name: Stick
   m_TagString: Untagged
@@ -132,19 +132,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
---- !u!114 &8480726415101040666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2208882335616104547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88a67a935ea64423886f70cfcb8dd78a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 7b5acade9a6508b4a97b50f5fc1dcc7b, type: 2}
 --- !u!114 &-1736159266623158535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,3 +147,15 @@ MonoBehaviour:
   itemData: {fileID: 11400000, guid: 7b5acade9a6508b4a97b50f5fc1dcc7b, type: 2}
   playerInRange: 0
   promptUI: {fileID: 0}
+--- !u!114 &5709781827419315140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2208882335616104547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61f761b258ebae41a1589420b9a1495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

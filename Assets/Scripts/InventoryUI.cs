@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
+    public static InventoryUI Singleton;
     public GameObject inventoryPanel;
-    private bool isInventoryOpen = false;
+    public bool isInventoryOpen = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,5 +27,10 @@ public class InventoryUI : MonoBehaviour
     {
         isInventoryOpen = !isInventoryOpen;
         inventoryPanel.SetActive(isInventoryOpen);
+
+        if (isInventoryOpen)
+        {
+            Inventory.Singleton.RefreshInventoryUI();
+        }
     }
 }

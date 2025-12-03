@@ -9,6 +9,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 {
     // Public reference to the icon that we assign in the prefab
     Image itemIcon;
+    //[SerializeField] private Image itemIcon;
+
     public CanvasGroup canvasGroup { get; private set; }
 
     public Item myItem { get; set; }
@@ -24,6 +26,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (itemIcon == null)
         {
             itemIcon = GetComponent<Image>();
+            //itemIcon = GetComponentInChildren<Image>();
             if (itemIcon == null)
                 Debug.LogError("InventoryItem: No Image assigned or found!");
         }
@@ -36,11 +39,11 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         myItem = item;
 
         // ✅ Use the icon variable we assigned
-        if (itemIcon == null)
-        {
-            Debug.LogError("InventoryItem: Icon is STILL null at Initialize! (Prefab not using correct script?)");
-            return;
-        }
+        //if (itemIcon == null)
+        //{
+        //    Debug.LogError("InventoryItem: Icon is STILL null at Initialize! (Prefab not using correct script?)");
+        //    return;
+        //}
 
         itemIcon.sprite = item.sprite;
         //// ✅ Force item to align perfectly inside its slot

@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Wood
   sprite: {fileID: 21300000, guid: a730e50cc0fc3af459bf4d4e0e3fbbef, type: 3}
   itemTag: 0
+  worldPrefab: {fileID: 1051229400228642728, guid: ba39364e4c38f4f6599acc53874facf2, type: 3}

@@ -2,9 +2,16 @@ using UnityEngine;
 
 public class MushroomChaseEnemy : MonoBehaviour
 {
+    [Header("Movement Settings")]
     public float moveSpeed = 2.5f;
     private Transform player;
 
+    [Header("Damage Settings")]
+    public int damageAmount = 10;
+    public float damageCooldown = 1f;
+    private float lastDamageTime = 0f;
+
+    [Header("Components")]
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer sr;
@@ -13,17 +20,17 @@ public class MushroomChaseEnemy : MonoBehaviour
 
     void Start()
     {
+        // Find player by tag
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
+        anim = GetComponentInChildren<Animator>();   // Animator is on Graphics child
+        sr = GetComponentInChildren<SpriteRenderer>(); // SpriteRenderer is also on child
     }
 
     void Update()
     {
         if (isDead) return;
-
         ChasePlayer();
     }
 
@@ -33,17 +40,30 @@ public class MushroomChaseEnemy : MonoBehaviour
 
         anim.Play("Mushroom_Run");
 
-        // Direction toward player
+        // Direction to player
         Vector2 direction = (player.position - transform.position).normalized;
 
-        // Movement
+        // Move toward player
         rb.velocity = direction * moveSpeed;
 
-        // Flip based on horizontal direction
+        // Flip based on direction
         if (direction.x > 0)
-            sr.flipX = false;   // face right
+            sr.flipX = false;
         else if (direction.x < 0)
-            sr.flipX = true;    // face left
+            sr.flipX = true;
+    }
+
+    // DAMAGE PLAYER WHEN TOUCHING
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            if (Time.time > lastDamageTime + damageCooldown)
+            {
+                collision.GetComponent<PlayerHealth>().TakeDamage(damageAmount);
+                lastDamageTime = Time.time;
+            }
+        }
     }
 
     public void Die()
@@ -52,9 +72,13 @@ public class MushroomChaseEnemy : MonoBehaviour
 
         isDead = true;
 
+        // Stop movement
         rb.velocity = Vector2.zero;
+
+        // Play death animation
         anim.Play("MushroomDie");
 
+        // Destroy after animation
         Destroy(gameObject, 0.8f);
     }
 }

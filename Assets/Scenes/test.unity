@@ -902,6 +902,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (11)
@@ -7212,6 +7216,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (5)
@@ -8503,6 +8511,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (10)
@@ -8857,6 +8869,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (9)
@@ -10940,6 +10956,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (18)
@@ -15752,6 +15772,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (1)
@@ -16453,6 +16477,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1038304898}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: backgroundImage
       value: 
@@ -18570,6 +18598,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (8)
@@ -20688,6 +20720,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (4)
@@ -21686,6 +21722,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (17)
@@ -31458,6 +31498,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (13)
@@ -32807,6 +32851,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1038304898}
     m_Modifications:
     - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: backgroundImage
       value: 
       objectReference: {fileID: 2127559394}
@@ -33896,7 +33944,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1183005920
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39415,6 +39463,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1038304898}
     m_Modifications:
     - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: backgroundImage
       value: 
       objectReference: {fileID: 2023003600}
@@ -41060,6 +41112,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1038304898}
     m_Modifications:
     - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: backgroundImage
       value: 
       objectReference: {fileID: 1431255905}
@@ -42359,6 +42415,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (15)
@@ -43312,6 +43372,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (2)
@@ -47227,6 +47291,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (3)
@@ -51304,6 +51372,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (19)
@@ -51669,6 +51741,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1038304898}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: backgroundImage
       value: 
@@ -52447,6 +52523,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (6)
@@ -56306,6 +56386,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (20)
@@ -56671,6 +56755,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (12)
@@ -57120,6 +57208,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (7)
@@ -57233,6 +57325,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (14)
@@ -58703,6 +58799,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1038304898}
     m_Modifications:
     - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: backgroundImage
       value: 
       objectReference: {fileID: 2033602156}
@@ -58914,6 +59014,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 720174361}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 1154657885723532697, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: m_Name
       value: Inventory Slots (16)
@@ -61563,6 +61667,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1038304898}
     m_Modifications:
+    - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
+      propertyPath: slotIndex
+      value: 26
+      objectReference: {fileID: 0}
     - target: {fileID: -8596223007683835531, guid: dd6e13d8034faa84f908eb15d63a313b, type: 3}
       propertyPath: backgroundImage
       value: 

@@ -9,9 +9,9 @@ public class InventoryUI : MonoBehaviour
     public GameObject inventoryPanel;
     public bool isInventoryOpen = false;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        Singleton = this;
     }
 
     // Update is called once per frame

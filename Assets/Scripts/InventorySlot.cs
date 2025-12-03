@@ -10,6 +10,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     public InventoryItem myItem { get; set; }
     public SlotTag myTag;
     public Image backgroundImage;
+    public int slotIndex;
 
     void Awake()
     {
@@ -33,6 +34,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
             if (item.activeSlot.myItem == item)
             {
                 item.activeSlot.myItem = null;
+                Inventory.Singleton.storedItems[item.activeSlot.slotIndex] = null;
             }
             //item.activeSlot = null;
         }
@@ -40,6 +42,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         // set current slot
         //myItem.activeSlot = null;
         myItem = item;
+        Inventory.Singleton.storedItems[this.slotIndex] = item.myItem;
         myItem.activeSlot = this;
         Debug.Log($"{this.myItem == null}, {item.activeSlot == this}");
         myItem.transform.SetParent(transform);

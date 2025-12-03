@@ -20,40 +20,36 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     void Awake()
     {
+        //canvasGroup = GetComponent<CanvasGroup>();
+
+        //// ✅ Always use the manually assigned icon (from the prefab)
+        //if (itemIcon == null)
+        //{
+        //    itemIcon = GetComponent<Image>();
+        //    //itemIcon = GetComponentInChildren<Image>();
+        //    if (itemIcon == null)
+        //        Debug.LogError("InventoryItem: No Image assigned or found!");
+        //}
+
         canvasGroup = GetComponent<CanvasGroup>();
 
-        // ✅ Always use the manually assigned icon (from the prefab)
+        // Try to get Image from root
+        itemIcon = GetComponent<Image>();
+
+        // If not on root, try children
         if (itemIcon == null)
-        {
-            itemIcon = GetComponent<Image>();
-            //itemIcon = GetComponentInChildren<Image>();
-            if (itemIcon == null)
-                Debug.LogError("InventoryItem: No Image assigned or found!");
-        }
+            itemIcon = GetComponentInChildren<Image>();
+
+        //if (itemIcon == null)
+        //    Debug.LogError("InventoryItem: No Image component found on prefab or children!", this);
     }
 
     public void Initialize( Item item, InventorySlot parent )
     {
+        itemIcon.sprite = item.sprite;
         activeSlot = parent;
         activeSlot.myItem = this;
         myItem = item;
-
-        // ✅ Use the icon variable we assigned
-        //if (itemIcon == null)
-        //{
-        //    Debug.LogError("InventoryItem: Icon is STILL null at Initialize! (Prefab not using correct script?)");
-        //    return;
-        //}
-
-        itemIcon.sprite = item.sprite;
-        //// ✅ Force item to align perfectly inside its slot
-        //RectTransform rect = GetComponent<RectTransform>();
-        //rect.anchorMin = Vector2.zero;
-        //rect.anchorMax = Vector2.one;
-        //rect.anchoredPosition = Vector2.zero;
-        //rect.offsetMin = Vector2.zero;
-        //rect.offsetMax = Vector2.zero;
-        //rect.localScale = Vector3.one;
     }
 
     public void OnPointerClick(PointerEventData eventData)

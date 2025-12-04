@@ -322,7 +322,7 @@ public class Inventory : MonoBehaviour
 
 
 
-    // ✅ Remove items from slots
+    //Remove items from slots
     public void RemoveItem(Item item, int quantity)
     {
         int removed = 0;
@@ -330,6 +330,7 @@ public class Inventory : MonoBehaviour
         {
             if (slot.myItem != null && slot.myItem.myItem.itemName == item.itemName)
             {
+                RemoveStoredItem(slot.myItem.myItem, slot.slotIndex);
                 Destroy(slot.myItem.gameObject);
                 slot.myItem = null;
                 removed++;

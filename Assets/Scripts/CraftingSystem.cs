@@ -11,13 +11,13 @@ public class CraftingSystem : MonoBehaviour
     {
         if (inventory == null)
         {
-            Debug.LogError("❌ CraftingSystem has no Inventory reference!");
+            Debug.LogError("CraftingSystem has no Inventory reference!");
             return false;
         }
 
         if (recipe == null)
         {
-            Debug.LogError("❌ No recipe provided!");
+            Debug.LogError("No recipe provided!");
             return false;
         }
 
@@ -36,7 +36,7 @@ public class CraftingSystem : MonoBehaviour
         // 🔹 CraftingSystem NO LONGER spawns world items
         //     UI (CraftingMenuUI) handles all world spawning visuals
 
-        Debug.Log($"✔ Crafted: {recipe.outputItem.name}");
+        Debug.Log($"Crafted: {recipe.outputItem.name}");
         return true;
     }
 

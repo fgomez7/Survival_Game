@@ -16,6 +16,7 @@ public class ItemEquipper : MonoBehaviour
     {
         Singleton = this;
         currentInvSlot = Inventory.Singleton.hotbarslots[0];
+        animator.SetBool("HasWeapon", false);
         //currentInvSlot.SetHighlight(true);
     }
 
@@ -36,7 +37,7 @@ public class ItemEquipper : MonoBehaviour
         if (slot.myItem == null)
         {
             //itemData = null;
-            animator.SetBool("HasWeapon", false);
+            //animator.SetBool("HasWeapon", false);
             return;
         }
         if (currentInvSlot == null)

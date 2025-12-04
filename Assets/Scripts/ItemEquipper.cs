@@ -8,7 +8,7 @@ public class ItemEquipper : MonoBehaviour
 
     public Transform handTransform; // where the item prefab spawns, not yet implemented
     private GameObject currentEquippedObject;
-    InventorySlot currentInvSlot;
+    private InventorySlot currentInvSlot;
     Item itemData;
     public Animator animator;
 
@@ -16,7 +16,7 @@ public class ItemEquipper : MonoBehaviour
     {
         Singleton = this;
         currentInvSlot = Inventory.Singleton.hotbarslots[0];
-        currentInvSlot.SetHighlight(true);
+        //currentInvSlot.SetHighlight(true);
     }
 
     public void EquipFromHotbar(int index)
@@ -39,7 +39,10 @@ public class ItemEquipper : MonoBehaviour
             animator.SetBool("HasWeapon", false);
             return;
         }
-
+        if (currentInvSlot == null)
+        {
+            currentInvSlot = Inventory.Singleton.hotbarslots[index];
+        }
         currentInvSlot.SetHighlight(false);
         slot.SetHighlight(true);
         currentInvSlot = slot;

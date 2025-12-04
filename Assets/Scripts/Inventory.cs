@@ -131,21 +131,21 @@ public class Inventory : MonoBehaviour
     public void RefreshInventoryUI()
     {
         //clear all ui
-        foreach(var slot in inventorySlots)
-        {
-            if (slot.myItem != null)
-            {
-                Destroy(slot.myItem.gameObject);
-                slot.myItem = null;
-            }
-        }
+        //foreach(var slot in inventorySlots)
+        //{
+        //    if (slot.myItem != null)
+        //    {
+        //        Destroy(slot.myItem.gameObject);
+        //        slot.myItem = null;
+        //    }
+        //}
 
         //recreate ui
 
         for (int i = 0; i < storedItems.Length;i++)
         {
             //var item = inventorySlots[i];
-            if (storedItems[i] != null)
+            if (storedItems[i] != null && inventorySlots[i].myItem == null)
             {
                 CreateUIItem(storedItems[i], i);
             }
@@ -160,11 +160,18 @@ public class Inventory : MonoBehaviour
     {
         if (indexSlot == -1)
         {
-            Debug.Log("In created ui item");
+            
             for (int i = 0; i < 28; i++)
             {
-                Debug.Log($"{i}");
-                if (storedItems[i] == null)
+                // puts item in hot bar slot or puts item in inventory when toggled on
+                if (storedItems[i] == null && (i >= 21 || InventoryUI.Singleton.isInventoryOpen))  
+                {
+                    var newItem = Instantiate(itemPrefab, inventorySlots[i].transform);
+                    newItem.Initialize(item, inventorySlots[i]);
+                    storedItems[i] = item;
+                    return;
+                }
+                else if (storedItems[i] == null) // inventory is closed so adding onto array 
                 {
 
                     //var newItem = Instantiate(itemPrefab, inventorySlots[i].transform);
@@ -174,6 +181,7 @@ public class Inventory : MonoBehaviour
                     //Debug.Log("hello there");
                     return;
                 }
+               
             }
         }
         else

@@ -28,28 +28,33 @@ public class Inventory : MonoBehaviour
 
     public InventorySlot[] hotbarslots;
 
-    public int maxInventorySize = 28;
+    private int maxInventorySize = 28;
 
-    void Awake()
-    {
-        Debug.Log($"[Inventory] Awake on: {gameObject.name}");
+    //void Awake()
+    //{
+    //    Debug.Log($"[Inventory] Awake on: {gameObject.name}");
 
-        Singleton = this;
+    //    Singleton = this;
 
-        storedItems = new Item[maxInventorySize];
+    //    storedItems = new Item[maxInventorySize];
 
-        if (inventorySlots == null || inventorySlots.Length == 0)
-        {
-            //inventorySlots = GetComponentsInChildren<InventorySlot>(true);
-            Debug.Log($"[Inventory] Auto-linked {inventorySlots.Length} inventory slots on {gameObject.name}");
-        }
+    //    if (inventorySlots == null || inventorySlots.Length == 0)
+    //    {
+    //        //inventorySlots = GetComponentsInChildren<InventorySlot>(true);
+    //        Debug.Log($"[Inventory] Auto-linked {inventorySlots.Length} inventory slots on {gameObject.name}");
+    //    }
 
-        giveItemBtn.onClick.AddListener(delegate { SpawnInventoryItem(); });
-    }
+    //    giveItemBtn.onClick.AddListener(delegate { SpawnInventoryItem(); });
+
+    //    //ItemEquipper.Singleton.EquipFromHotbar(0);
+    //}
 
 
     void Start()
     {
+        Singleton = this;
+        storedItems = new Item[maxInventorySize];
+
         Debug.Log("🔍 Inventory.Start() called!");
 
         if (items != null && items.Length > 0)
@@ -70,36 +75,13 @@ public class Inventory : MonoBehaviour
             Debug.Log($"After setup: {CountAllItems()} items in inventory.");
         }
 
+        RefreshInventoryUI();
+
         // ⭐ FIX: Refresh crafting UI AFTER items have been spawned
         FindObjectOfType<CraftingMenuUI>()?.UpdateResourceDisplay();
     }
-
-
-    // Spawns an inventory item into the next empty slot
-    public void SpawnInventoryItem(Item item = null)
+    public void SpawnInventoryItem(Item item, int indexSlot = -1)
     {
-        //Item _item = item;
-
-        //if (_item == null && items.Length > 0)
-        //    _item = items[Random.Range(0, items.Length)];
-
-        //for (int i = 0; i < inventorySlots.Length; i++)
-        //{
-        //    if (inventorySlots[i].myItem == null)
-        //    {
-        //        //Debug.Log($"{inventorySlots[i].myItem == null}");
-        //        var newItem = Instantiate(itemPrefab, inventorySlots[i].transform);
-        //        newItem.Initialize(_item, inventorySlots[i]);
-
-        //        // // 👇 Add this right here
-        //        Debug.Log($"Spawned {_item.itemName} into slot {i}. myItem set? {inventorySlots[i].myItem != null}");
-        //        break;
-        //        // Instantiate(itemPrefab, inventorySlots[i].transform).Initialize(_item, inventorySlots[i]);
-        //        // break;
-        //    }
-        //}
-
-        // pick random item if none provided
         Item _item = item ?? (items.Length > 0 ? items[Random.Range(0, items.Length)] : null);
         if (_item == null)
         {
@@ -107,57 +89,6 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        //if (storedItems.Count >= maxInventorySize)
-        //{
-        //    Debug.Log("[Inventory] Cannot add item - inventory is full!");
-        //    return;
-        //}
-
-        //storedItems.Add(_item);
-        //Debug.Log($"[Inventory] Stored item: {_item.itemName}. Total stored: {storedItems.Count}");
-
-        //only build ui if inventory panel is visible
-
-        //if (InventoryUI.Singleton != null && InventoryUI.Singleton.isInventoryOpen)
-        //{
-        //    CreateUIItem(item);
-        //}
-        if (InventoryUI.Singleton != null)
-        {
-            CreateUIItem(item);
-        }
-    }
-
-    public void RefreshInventoryUI()
-    {
-        //clear all ui
-        //foreach(var slot in inventorySlots)
-        //{
-        //    if (slot.myItem != null)
-        //    {
-        //        Destroy(slot.myItem.gameObject);
-        //        slot.myItem = null;
-        //    }
-        //}
-
-        //recreate ui
-
-        for (int i = 0; i < storedItems.Length;i++)
-        {
-            //var item = inventorySlots[i];
-            if (storedItems[i] != null && inventorySlots[i].myItem == null)
-            {
-                CreateUIItem(storedItems[i], i);
-            }
-        }
-
-        //foreach (var item in storedItems)
-        //    item.
-        //    CreateUIItem(item, item.activeSlot);
-    }
-
-    private void CreateUIItem(Item item, int indexSlot = -1)
-    {
         if (indexSlot == -1)
         {
             
@@ -192,6 +123,18 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void RefreshInventoryUI()
+    {
+        for (int i = 0; i < storedItems.Length; i++)
+        {
+            //var item = inventorySlots[i];
+            if (storedItems[i] != null && inventorySlots[i].myItem == null)
+            {
+                SpawnInventoryItem(storedItems[i], i);
+            }
+        }
+    }
+
     public void SetCarriedItem(InventoryItem item)
     {
         if (carriedItem != null)
@@ -210,7 +153,8 @@ public class Inventory : MonoBehaviour
         carriedItem = item;
         carriedItem.canvasGroup.blocksRaycasts = false;
         item.transform.SetParent(draggablesTransform);
-        carriedItem.activeSlot.SetHighlight(false);
+        ItemEquipper.Singleton.ResetEquipped();
+        //carriedItem.activeSlot.SetHighlight(false);
     }
     
     public void DropItem( InventoryItem item, Transform playerTransform )
@@ -220,8 +164,8 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        item.activeSlot.SetHighlight(false);
-        //ItemEquipper.Singleton.ResetEquipped();
+        //item.activeSlot.SetHighlight(false);
+        ItemEquipper.Singleton.ResetEquipped();
         item.activeSlot.myItem = null;
 
         RemoveStoredItem(item.myItem, item.activeSlot.slotIndex);
@@ -248,8 +192,8 @@ public class Inventory : MonoBehaviour
             Debug.LogWarning("Tried to consume a non-consumable item.");
             return;
         }
-        item.activeSlot.SetHighlight(false);
-        //ItemEquipper.Singleton.ResetEquipped();
+        //item.activeSlot.SetHighlight(false);
+        ItemEquipper.Singleton.ResetEquipped();
         item.activeSlot.myItem = null;
         RemoveStoredItem(item.myItem, item.activeSlot.slotIndex);
 
@@ -332,6 +276,10 @@ public class Inventory : MonoBehaviour
             {
                 RemoveStoredItem(slot.myItem.myItem, slot.slotIndex);
                 Destroy(slot.myItem.gameObject);
+                if (slot == ItemEquipper.Singleton.CurrentSlot())
+                {
+                    ItemEquipper.Singleton.ResetEquipped();
+                }
                 slot.myItem = null;
                 removed++;
                 if (removed >= quantity) return;

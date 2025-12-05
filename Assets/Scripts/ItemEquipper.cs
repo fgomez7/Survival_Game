@@ -8,14 +8,18 @@ public class ItemEquipper : MonoBehaviour
 
     public Transform handTransform; // where the item prefab spawns, not yet implemented
     private GameObject currentEquippedObject;
-    private InventorySlot currentInvSlot;
-    Item itemData;
+    public InventorySlot currentInvSlot;
+    public Item itemData;
     public Animator animator;
 
-    void Awake()
+    IEnumerator Start()
     {
+        Debug.Log("itemequipper started");
         Singleton = this;
+        yield return null;
         currentInvSlot = Inventory.Singleton.hotbarslots[0];
+        itemData = currentInvSlot.myItem.myItem;
+        //EquipFromHotbar(0);
         animator.SetBool("HasWeapon", false);
         //currentInvSlot.SetHighlight(true);
     }
@@ -34,15 +38,18 @@ public class ItemEquipper : MonoBehaviour
             Destroy(currentEquippedObject);
         }
 
+        //if (currentInvSlot == null)
+        //{
+        //    currentInvSlot = slot;
+        //    if (slot != null) {
+        //        Debug.Log("yeah, it's not null");
+        //    }
+        //}
         if (slot.myItem == null)
         {
             //itemData = null;
             //animator.SetBool("HasWeapon", false);
             return;
-        }
-        if (currentInvSlot == null)
-        {
-            currentInvSlot = Inventory.Singleton.hotbarslots[index];
         }
         currentInvSlot.SetHighlight(false);
         slot.SetHighlight(true);
@@ -58,12 +65,18 @@ public class ItemEquipper : MonoBehaviour
         animator.SetBool("HasWeapon", isWeapon);
     }
 
-    //public void ResetEquipped()
-    //{
-    //    currentInvSlot.SetHighlight(false);
-    //    currentInvSlot = null;
-    //    itemData = null;
-    //}
+    public void ResetEquipped()
+    {
+        currentInvSlot.SetHighlight(false);
+        itemData = null;
+        animator.SetBool("HasWeapon", false);
+        //currentInvSlot = null;
+        //itemData = null;
+        //if (itemData != null)
+        //{
+        //    Debug.Log("it is not null");
+        //}
+    }
     public Item CurrentEquippedItem()
     {
         return itemData;

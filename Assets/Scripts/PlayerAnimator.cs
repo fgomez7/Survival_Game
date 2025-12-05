@@ -35,6 +35,10 @@ public class PlayerAnimator : MonoBehaviour
                 animator.ResetTrigger("Attack");
                 animator.SetTrigger("Attack");
             }
+            else
+            {
+                Debug.Log("doesn't have weapon");
+            }
         }
 
     }

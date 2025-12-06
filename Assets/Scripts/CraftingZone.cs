@@ -4,6 +4,7 @@ public class CraftingZone : MonoBehaviour
 {
     [Header("Crafting UI Reference")]
     [SerializeField] private GameObject craftingMenuUI;   // Drag your CraftingMenu Canvas here
+    [SerializeField] CraftingMenuUI updateCraft;
 
     private bool playerNearby = false;
     private bool isQuitting = false; // 🧩 prevents errors when exiting Play Mode
@@ -20,6 +21,11 @@ public class CraftingZone : MonoBehaviour
 
             bool isActive = craftingMenuUI.activeSelf;
             craftingMenuUI.SetActive(!isActive);
+
+            if (craftingMenuUI.activeSelf)
+            {
+                updateCraft.UpdateResourceDisplay();
+            } // updates resources if menuUI is open
             Debug.Log("🪓 Pressed C near the house - toggling menu: " + !isActive);
         }
     }

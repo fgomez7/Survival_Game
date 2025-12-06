@@ -7,11 +7,11 @@ public class InventoryUI : MonoBehaviour
 {
     public static InventoryUI Singleton;
     public GameObject inventoryPanel;
-    public bool isInventoryOpen = true;
+    public bool isInventoryOpen;
     // Start is called before the first frame update
     void Awake()
     {
-        Debug.Log("ui is awake");
+        //Debug.Log("ui is awake");
         Singleton = this;
     }
 

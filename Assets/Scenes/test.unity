@@ -7919,6 +7919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   craftingMenuUI: {fileID: 1119998247}
+  updateCraft: {fileID: 1119998249}
 --- !u!61 &256888037
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -34070,7 +34071,6 @@ MonoBehaviour:
   - {fileID: 2081390424}
   - {fileID: 2114724435}
   - {fileID: 1379232544}
-  maxInventorySize: 28
 --- !u!1 &1189061541
 GameObject:
   m_ObjectHideFlags: 0
@@ -36149,7 +36149,6 @@ MonoBehaviour:
   giveItemBtn: {fileID: 0}
   hunger: {fileID: 0}
   hotbarslots: []
-  maxInventorySize: 28
 --- !u!4 &1260346771
 Transform:
   m_ObjectHideFlags: 0

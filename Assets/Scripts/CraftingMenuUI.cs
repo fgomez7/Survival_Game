@@ -29,7 +29,7 @@ public class CraftingMenuUI : MonoBehaviour
     public Item stickItem;               // drag Item_Stick here
 
 
-    private void Start()
+    private void Awake()
     {
         UpdateResourceDisplay();
         craftStickButton.onClick.AddListener(() => TryCraft(availableRecipes[0]));

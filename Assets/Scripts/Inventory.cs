@@ -225,28 +225,28 @@ public class Inventory : MonoBehaviour
     // ✅ Check if player has enough of a specific item
     public bool HasItem(Item item, int quantity)
     {
-    int count = 0;
-    Debug.Log($"🔍 [HasItem] Checking for: {item.name} (ID: {item.GetInstanceID()})");
+        int count = 0;
+        Debug.Log($"🔍 [HasItem] Checking for: {item.name} (ID: {item.GetInstanceID()})");
 
-    foreach (var slot in inventorySlots)
-    {
-        if (slot.myItem != null)
+        foreach (var slot in inventorySlots)
         {
-            Item slotItem = slot.myItem.myItem;
-            Debug.Log($"   → Slot has {slotItem.name} (ID: {slotItem.GetInstanceID()})");
+            if (slot.myItem != null)
+            {
+                Item slotItem = slot.myItem.myItem;
+                Debug.Log($"   → Slot has {slotItem.name} (ID: {slotItem.GetInstanceID()})");
 
-            // Compare by reference (same object in memory)
-            if (slotItem == item)
-                count++;
+                // Compare by reference (same object in memory)
+                if (slotItem == item)
+                    count++;
+            }
+            else
+            {
+                Debug.Log("   → Slot empty");
+            }
         }
-        else
-        {
-            Debug.Log("   → Slot empty");
-        }
-    }
 
-    Debug.Log($"[HasItem] Result: Found {count}, Need {quantity}");
-    return count >= quantity;
+        Debug.Log($"[HasItem] Result: Found {count}, Need {quantity}");
+        return count >= quantity;
     }
     // ✅ Returns how many of a specific Item the player has
     public int GetItemCount(Item item)

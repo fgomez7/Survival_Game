@@ -132,6 +132,21 @@ public class Inventory : MonoBehaviour
             {
                 SpawnInventoryItem(storedItems[i], i);
             }
+            else if (storedItems[i] == null && inventorySlots[i].myItem != null)
+            {
+                var invItem = inventorySlots[i].myItem;
+                invItem.activeSlot = null;
+                Destroy(invItem.gameObject);
+                inventorySlots[i].myItem = null;
+            }
+            else if ((storedItems[i] != null && inventorySlots[i].myItem != null) && storedItems[i] != inventorySlots[i].myItem)
+            {
+                var invItem = inventorySlots[i].myItem;
+                invItem.activeSlot = null;
+                Destroy(invItem.gameObject);
+                inventorySlots[i].myItem = null;
+                SpawnInventoryItem(storedItems[i], i);
+            }
         }
     }
 
@@ -228,20 +243,31 @@ public class Inventory : MonoBehaviour
         int count = 0;
         Debug.Log($"🔍 [HasItem] Checking for: {item.name} (ID: {item.GetInstanceID()})");
 
-        foreach (var slot in inventorySlots)
-        {
-            if (slot.myItem != null)
-            {
-                Item slotItem = slot.myItem.myItem;
-                Debug.Log($"   → Slot has {slotItem.name} (ID: {slotItem.GetInstanceID()})");
+        //foreach (var slot in inventorySlots)
+        //{
+        //    if (slot.myItem != null)
+        //    {
+        //        Item slotItem = slot.myItem.myItem;
+        //        Debug.Log($"   → Slot has {slotItem.name} (ID: {slotItem.GetInstanceID()})");
 
-                // Compare by reference (same object in memory)
-                if (slotItem == item)
-                    count++;
-            }
-            else
+        //        // Compare by reference (same object in memory)
+        //        if (slotItem == item)
+        //            count++;
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("   → Slot empty");
+        //    }
+        //}
+
+        foreach (var items in storedItems)
+        {
+            if (items != null)
             {
-                Debug.Log("   → Slot empty");
+                if (items.Equals(item))
+                {
+                    count++;
+                }
             }
         }
 
@@ -253,11 +279,22 @@ public class Inventory : MonoBehaviour
     {
         int count = 0;
 
-        foreach (var slot in inventorySlots)
+        //foreach (var slot in inventorySlots)
+        //{
+        //    if (slot.myItem != null && slot.myItem.myItem == item)
+        //    {
+        //        count++;
+        //    }
+        //}
+
+        foreach (var items in storedItems)
         {
-            if (slot.myItem != null && slot.myItem.myItem == item)
+            if (items != null)
             {
-                count++;
+                if (items.Equals(item))
+                {
+                    count++;
+                }
             }
         }
 
@@ -270,17 +307,26 @@ public class Inventory : MonoBehaviour
     public void RemoveItem(Item item, int quantity)
     {
         int removed = 0;
-        foreach (var slot in inventorySlots)
+        //foreach (var slot in inventorySlots)
         {
-            if (slot.myItem != null && slot.myItem.myItem.itemName == item.itemName)
+            //if (slot.myItem != null && slot.myItem.myItem.itemName == item.itemName)
             {
-                RemoveStoredItem(slot.myItem.myItem, slot.slotIndex);
-                Destroy(slot.myItem.gameObject);
-                if (slot == ItemEquipper.Singleton.CurrentSlot())
-                {
-                    ItemEquipper.Singleton.ResetEquipped();
-                }
-                slot.myItem = null;
+                //RemoveStoredItem(slot.myItem.myItem, slot.slotIndex);
+                //Destroy(slot.myItem.gameObject);
+                //if (slot == ItemEquipper.Singleton.CurrentSlot())
+                //{
+                //    ItemEquipper.Singleton.ResetEquipped();
+                //}
+                //slot.myItem = null;
+                //removed++;
+                //if (removed >= quantity) return;
+            }
+        }
+        for (int i = 0; i < storedItems.Length; i++)
+        {
+            if (storedItems[i] != null && storedItems[i] == item)
+            {
+                RemoveStoredItem(inventorySlots[0].myItem.myItem, i);
                 removed++;
                 if (removed >= quantity) return;
             }

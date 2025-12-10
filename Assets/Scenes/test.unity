@@ -469,6 +469,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mushroom (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8150945808569868289, guid: a16e0345e08d69142b59725b414c6a75, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -34061,6 +34065,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 58d6bb265d6047a42971074ba6f9992c, type: 2}
   - {fileID: 11400000, guid: 8c7d0463f742f894a81f34d8a0ca4a61, type: 2}
   - {fileID: 11400000, guid: 7b5acade9a6508b4a97b50f5fc1dcc7b, type: 2}
+  - {fileID: 11400000, guid: c0ea1598c135b674788962ffc19b58dc, type: 2}
   giveItemBtn: {fileID: 928798491}
   hunger: {fileID: 2003607536}
   hotbarslots:
@@ -63330,6 +63335,10 @@ PrefabInstance:
     - target: {fileID: 8150945808569868289, guid: a16e0345e08d69142b59725b414c6a75, type: 3}
       propertyPath: m_Name
       value: Mushroom
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150945808569868289, guid: a16e0345e08d69142b59725b414c6a75, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

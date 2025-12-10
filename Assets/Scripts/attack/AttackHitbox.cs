@@ -24,6 +24,14 @@ public class AttackHitbox : MonoBehaviour
                 return;
             }
         }
+        var enemy = other.GetComponent<MushroomChaseEnemy>();
+        if (enemy != null)
+        {
+            Debug.Log("Enemy hit! Applying damage / triggering death.");
+
+            enemy.Die();   // <- Call your enemy death function
+            return;
+        }
         // USE SWITCH STATEMENT TO COMPARE OBJECTS HIT
         //var tree = other.GetComponent<Tree>();
         if (tree != null)

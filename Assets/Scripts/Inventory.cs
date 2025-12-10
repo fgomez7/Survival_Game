@@ -91,11 +91,11 @@ public class Inventory : MonoBehaviour
 
         if (indexSlot == -1)
         {
-            
+
             for (int i = 0; i < 28; i++)
             {
                 // puts item in hot bar slot or puts item in inventory when toggled on
-                if (storedItems[i] == null && (i >= 21 || InventoryUI.Singleton.isInventoryOpen))  
+                if (storedItems[i] == null && (i >= 21 || InventoryUI.Singleton.isInventoryOpen))
                 {
                     var newItem = Instantiate(itemPrefab, inventorySlots[i].transform);
                     newItem.Initialize(item, inventorySlots[i]);
@@ -112,7 +112,7 @@ public class Inventory : MonoBehaviour
                     //Debug.Log("hello there");
                     return;
                 }
-               
+
             }
         }
         else
@@ -171,8 +171,8 @@ public class Inventory : MonoBehaviour
         ItemEquipper.Singleton.ResetEquipped();
         //carriedItem.activeSlot.SetHighlight(false);
     }
-    
-    public void DropItem( InventoryItem item, Transform playerTransform )
+
+    public void DropItem(InventoryItem item, Transform playerTransform)
     {
         if (item == null)
         {
@@ -187,7 +187,7 @@ public class Inventory : MonoBehaviour
         Destroy(item.gameObject);
 
         Item itemData = item.myItem;
-        if ( itemData != null && itemData.worldPrefab != null )
+        if (itemData != null && itemData.worldPrefab != null)
         {
             UnityEngine.Vector3 dropPosition = playerTransform.position + playerTransform.right * 1.0f;
             Instantiate(itemData.worldPrefab, dropPosition, UnityEngine.Quaternion.identity);

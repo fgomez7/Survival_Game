@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MushroomChaseEnemy : MonoBehaviour
 {
@@ -20,38 +20,48 @@ public class MushroomChaseEnemy : MonoBehaviour
 
     void Start()
     {
-        // Find player by tag
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();   // Animator is on Graphics child
-        sr = GetComponentInChildren<SpriteRenderer>(); // SpriteRenderer is also on child
+        anim = GetComponentInChildren<Animator>();
+        sr = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Update()
     {
         if (isDead) return;
+
+        if (player == null)
+        {
+            anim.SetBool("IsRunning", false);
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
         ChasePlayer();
     }
 
+
     void ChasePlayer()
     {
-        if (player == null) return;
-
-        anim.Play("Mushroom_Run");
-
-        // Direction to player
         Vector2 direction = (player.position - transform.position).normalized;
 
-        // Move toward player
+        // If too small to move (very close to player)
+        if (direction.magnitude < 0.1f)
+        {
+            anim.SetBool("IsRunning", false);
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
+        anim.SetBool("IsRunning", true);
         rb.velocity = direction * moveSpeed;
 
-        // Flip based on direction
-        if (direction.x > 0)
-            sr.flipX = false;
-        else if (direction.x < 0)
-            sr.flipX = true;
+        // Flip sprite
+        sr.flipX = direction.x > 0;
     }
+
+
 
     // DAMAGE PLAYER WHEN TOUCHING
     void OnTriggerStay2D(Collider2D collision)
@@ -66,19 +76,24 @@ public class MushroomChaseEnemy : MonoBehaviour
         }
     }
 
+    // CALLED WHEN PLAYER ATTACK HITS ENEMY
     public void Die()
     {
         if (isDead) return;
 
         isDead = true;
 
-        // Stop movement
+        // Stop physics
         rb.velocity = Vector2.zero;
+        rb.isKinematic = true; // optional
 
-        // Play death animation
-        anim.Play("MushroomDie");
+        // Stop run animation
+        anim.SetBool("IsRunning", false);
+
+        // 🔥 Trigger death animation
+        anim.SetTrigger("Die");
 
         // Destroy after animation
-        Destroy(gameObject, 0.8f);
+        Destroy(gameObject, 1f); // match animation length
     }
 }

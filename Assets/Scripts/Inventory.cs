@@ -183,7 +183,8 @@ public class Inventory : MonoBehaviour
         ItemEquipper.Singleton.ResetEquipped();
         item.activeSlot.myItem = null;
 
-        RemoveStoredItem(item.myItem, item.activeSlot.slotIndex);
+        //RemoveStoredItem(item.myItem, item.activeSlot.slotIndex);
+        RemoveStoredItem(item.activeSlot.slotIndex);
         Destroy(item.gameObject);
 
         Item itemData = item.myItem;
@@ -210,7 +211,8 @@ public class Inventory : MonoBehaviour
         //item.activeSlot.SetHighlight(false);
         ItemEquipper.Singleton.ResetEquipped();
         item.activeSlot.myItem = null;
-        RemoveStoredItem(item.myItem, item.activeSlot.slotIndex);
+        //RemoveStoredItem(item.myItem, item.activeSlot.slotIndex);
+        RemoveStoredItem(item.activeSlot.slotIndex);
 
         Destroy(item.gameObject);
 
@@ -219,7 +221,8 @@ public class Inventory : MonoBehaviour
 
 
     }
-    public void RemoveStoredItem(Item item, int itemindex)
+    //public void RemoveStoredItem(Item item, int itemindex)
+    public void RemoveStoredItem(int itemindex)
     {
         //if (storedItems.Contains(item))
         //{
@@ -326,7 +329,9 @@ public class Inventory : MonoBehaviour
         {
             if (storedItems[i] != null && storedItems[i] == item)
             {
-                RemoveStoredItem(inventorySlots[0].myItem.myItem, i);
+                //RemoveStoredItem(inventorySlots[0].myItem.myItem, i);
+                RemoveStoredItem(i);
+                RefreshInventoryUI();
                 removed++;
                 if (removed >= quantity) return;
             }

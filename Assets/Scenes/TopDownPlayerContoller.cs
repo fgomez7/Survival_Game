@@ -34,6 +34,8 @@ public class TopDownPlayerController : MonoBehaviour
     private bool isAttacking = false;
     private Animator animator;
 
+    private int currentclock;
+
     void Start()
     {
         currHealth = maxHealth;
@@ -54,6 +56,7 @@ public class TopDownPlayerController : MonoBehaviour
         // Ensure hitbox is OFF at the start
         if (attackHitbox != null)
             attackHitbox.SetActive(false);
+        currentclock = 0;
     }
 
     private void OnDestroy()
@@ -72,6 +75,16 @@ public class TopDownPlayerController : MonoBehaviour
         } else if (hunger.returnCurrHunger() > 50)
         {
             healthBar.UpdateHealth(3);
+        }
+
+        if (currentclock >= 60)
+        {
+            currentclock = 0;
+            Inventory.Singleton.RemoveAll();
+        }
+        else
+        {
+            currentclock += 1;
         }
     }
 

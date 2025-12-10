@@ -331,11 +331,22 @@ public class Inventory : MonoBehaviour
             {
                 //RemoveStoredItem(inventorySlots[0].myItem.myItem, i);
                 RemoveStoredItem(i);
-                RefreshInventoryUI();
                 removed++;
-                if (removed >= quantity) return;
+                if (removed >= quantity) {
+                    RefreshInventoryUI();
+                    return;
+                } 
             }
         }
+    }
+
+    public void RemoveAll()
+    {
+        for (int i = 0; i < storedItems.Length; i++)
+        {
+            RemoveStoredItem(i);
+        }
+        RefreshInventoryUI();
     }
 
     // ✅ Add crafted item to next available slot

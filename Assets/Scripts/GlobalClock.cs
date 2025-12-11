@@ -14,10 +14,18 @@ public class GlobalClock : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        //if (Instance == null)
+        //{
+        //    Instance = this;
+        //}
+        if (Instance != null && Instance != this)
         {
-            Instance = this;
+            Destroy(gameObject);
+            return;
         }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Numerics;
 using Unity.VisualScripting;
+using Unity.VisualScripting.ReorderableList;
+
 
 //using System.Threading.Tasks.Dataflow;
 using UnityEngine;
@@ -57,28 +59,39 @@ public class Inventory : MonoBehaviour
 
         Debug.Log("🔍 Inventory.Start() called!");
 
-        if (items != null && items.Length > 0)
-        {
-            Item wood = items[0];
-            Item stone = items.Length > 1 ? items[1] : null;
+        //if (items != null && items.Length > 0)
+        //{
+        //    Item wood = items[0];
+        //    Item stone = items.Length > 1 ? items[1] : null;
 
-            for (int i = 0; i < 10; i++)
-                SpawnInventoryItem(wood);
+        //    for (int i = 0; i < 10; i++)
+        //        SpawnInventoryItem(wood);
 
-            if (stone != null)
-            {
-                for (int i = 0; i < 10; i++)
-                    SpawnInventoryItem(stone);
-            }
+        //    if (stone != null)
+        //    {
+        //        for (int i = 0; i < 10; i++)
+        //            SpawnInventoryItem(stone);
+        //    }
 
-            Debug.Log($"Starting resources added: 10 {wood.itemName}, 10 {(stone != null ? stone.itemName : "none")}");
-            Debug.Log($"After setup: {CountAllItems()} items in inventory.");
-        }
+        //    Debug.Log($"Starting resources added: 10 {wood.itemName}, 10 {(stone != null ? stone.itemName : "none")}");
+        //    Debug.Log($"After setup: {CountAllItems()} items in inventory.");
+        //}
+
+        RestorePersistentItems();
 
         RefreshInventoryUI();
 
         // ⭐ FIX: Refresh crafting UI AFTER items have been spawned
         FindObjectOfType<CraftingMenuUI>()?.UpdateResourceDisplay();
+    }
+
+    public void RestorePersistentItems()
+    {
+        if (InventoryPersistentStorage.itemsCache != null)
+        {
+            storedItems = (Item[])InventoryPersistentStorage.itemsCache.Clone();
+            InventoryPersistentStorage.itemsCache = null; // prevent duplicates
+        }
     }
     public void SpawnInventoryItem(Item item, int indexSlot = -1)
     {
@@ -347,6 +360,21 @@ public class Inventory : MonoBehaviour
             RemoveStoredItem(i);
         }
         RefreshInventoryUI();
+    }
+
+    public void SavePersistentItems() //THIS IS WHERE WE FILTER OUT ITEMS TO BE SAVED OR NOT
+    {
+        //if (storedItems == null) return;
+        var kept = new List<Item>();
+
+        foreach (var item in storedItems)
+        {
+            if (item != null && item.isPermanent) kept.Add(item);
+        }
+
+        //InventoryPersistentStorage.itemsCache = (Item[])storedItems.Clone();
+        InventoryPersistentStorage.itemsCache = kept.ToArray();
+
     }
 
     // ✅ Add crafted item to next available slot

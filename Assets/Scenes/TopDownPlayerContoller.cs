@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Diagnostics;
 using Debug = UnityEngine.Debug;
+using UnityEngine.SceneManagement;
 
 public class TopDownPlayerController : MonoBehaviour
 {
@@ -72,7 +73,8 @@ public class TopDownPlayerController : MonoBehaviour
         if (hunger.returnCurrHunger() == 0 && healthBar.returnCurrHealth() > 20)
         {
             healthBar.UpdateHealth(-1);
-        } else if (hunger.returnCurrHunger() > 50)
+        }
+        else if (hunger.returnCurrHunger() > 50)
         {
             healthBar.UpdateHealth(3);
         }
@@ -80,12 +82,20 @@ public class TopDownPlayerController : MonoBehaviour
         if (currentclock >= 60)
         {
             currentclock = 0;
-            Inventory.Singleton.RemoveAll();
+            //Inventory.Singleton.RemoveAll();
+            ResetWorld();
         }
         else
         {
             currentclock += 1;
         }
+    }
+
+    void ResetWorld()
+    {
+        Time.timeScale = 1f; // forces unity editor to unpause
+        Inventory.Singleton.SavePersistentItems();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void Awake()

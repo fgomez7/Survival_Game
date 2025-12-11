@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class Item : ScriptableObject
 {
     public string itemName;
+    public bool isPermanent;
     public Sprite sprite;
     public SlotTag itemTag = SlotTag.None;
 

@@ -57,8 +57,9 @@ public class Inventory : MonoBehaviour
         Singleton = this;
         storedItems = new Item[maxInventorySize];
 
-        Debug.Log("🔍 Inventory.Start() called!");
+        RestorePersistentItems();
 
+        //Debug.Log("🔍 Inventory.Start() called!");
         //if (items != null && items.Length > 0)
         //{
         //    Item wood = items[0];
@@ -77,7 +78,6 @@ public class Inventory : MonoBehaviour
         //    Debug.Log($"After setup: {CountAllItems()} items in inventory.");
         //}
 
-        RestorePersistentItems();
 
         RefreshInventoryUI();
 

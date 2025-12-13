@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: 
   itemName: Apple
-  isPermanent: 1
+  isPermanent: 0
   sprite: {fileID: -1601462975, guid: b728044f29bedbf45951587e4fabc4d2, type: 3}
   itemTag: 4
   worldPrefab: {fileID: 2144354457424970821, guid: 1eaf1a36638448649aa66c25af94875c, type: 3}

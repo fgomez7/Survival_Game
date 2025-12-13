@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemEquipper : MonoBehaviour
 {
     public static ItemEquipper Singleton;
+    //public Sword swordDurability;
 
     public Transform handTransform; // where the item prefab spawns, not yet implemented
     private GameObject currentEquippedObject;
@@ -63,13 +64,20 @@ public class ItemEquipper : MonoBehaviour
         //player has a weapon -> enable attack animations
         bool isWeapon = (itemData.itemTag == SlotTag.Weapon);
         animator.SetBool("HasWeapon", isWeapon);
+        //if (isWeapon)
+        //{
+        //    swordDurability.ResetDurability();
+        //}
     }
 
-    public void ResetEquipped()
+    public void ResetEquipped(int itemSlot = -1)
     {
-        currentInvSlot.SetHighlight(false);
-        itemData = null;
-        animator.SetBool("HasWeapon", false);
+        if (currentInvSlot.slotIndex == itemSlot)
+        {
+            currentInvSlot.SetHighlight(false);
+            itemData = null;
+            animator.SetBool("HasWeapon", false);
+        }
         //currentInvSlot = null;
         //itemData = null;
         //if (itemData != null)

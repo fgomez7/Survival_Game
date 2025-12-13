@@ -87,10 +87,19 @@ public class Inventory : MonoBehaviour
 
     public void RestorePersistentItems()
     {
+        storedItems = new Item[maxInventorySize];
+
         if (InventoryPersistentStorage.itemsCache != null)
         {
-            storedItems = (Item[])InventoryPersistentStorage.itemsCache.Clone();
-            InventoryPersistentStorage.itemsCache = null; // prevent duplicates
+            //storedItems = (Item[])InventoryPersistentStorage.itemsCache.Clone();
+            //InventoryPersistentStorage.itemsCache = null; // prevent duplicates
+            Item[] cached = InventoryPersistentStorage.itemsCache;
+
+            for (int i = 0; i < cached.Length && i < storedItems.Length; i++)
+            {
+                storedItems[i] = cached[i];
+            }
+            InventoryPersistentStorage.itemsCache = null;
         }
     }
     public void SpawnInventoryItem(Item item, int indexSlot = -1)
@@ -161,6 +170,7 @@ public class Inventory : MonoBehaviour
                 SpawnInventoryItem(storedItems[i], i);
             }
         }
+        //ItemEquipper.Singleton.ResetEquipped();
     }
 
     public void SetCarriedItem(InventoryItem item)
@@ -181,7 +191,7 @@ public class Inventory : MonoBehaviour
         carriedItem = item;
         carriedItem.canvasGroup.blocksRaycasts = false;
         item.transform.SetParent(draggablesTransform);
-        ItemEquipper.Singleton.ResetEquipped();
+        ItemEquipper.Singleton.ResetEquipped(item.activeSlot.slotIndex);
         //carriedItem.activeSlot.SetHighlight(false);
     }
 
@@ -193,7 +203,7 @@ public class Inventory : MonoBehaviour
         }
 
         //item.activeSlot.SetHighlight(false);
-        ItemEquipper.Singleton.ResetEquipped();
+        ItemEquipper.Singleton.ResetEquipped(item.activeSlot.slotIndex);
         item.activeSlot.myItem = null;
 
         //RemoveStoredItem(item.myItem, item.activeSlot.slotIndex);
@@ -218,11 +228,17 @@ public class Inventory : MonoBehaviour
         Item itemData = item.myItem;
         if (itemData == null || itemData.itemTag != SlotTag.Consumable)
         {
+            if (itemData.itemTag == SlotTag.Weapon)
+            {
+                ItemEquipper.Singleton.ResetEquipped(item.activeSlot.slotIndex);
+                item.activeSlot.myItem = null;
+                Destroy(item.gameObject);
+            }
             Debug.LogWarning("Tried to consume a non-consumable item.");
             return;
         }
         //item.activeSlot.SetHighlight(false);
-        ItemEquipper.Singleton.ResetEquipped();
+        ItemEquipper.Singleton.ResetEquipped(item.activeSlot.slotIndex);
         item.activeSlot.myItem = null;
         //RemoveStoredItem(item.myItem, item.activeSlot.slotIndex);
         RemoveStoredItem(item.activeSlot.slotIndex);

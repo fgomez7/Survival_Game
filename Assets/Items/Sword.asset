@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   itemName: Sword
+  isPermanent: 1
   sprite: {fileID: 21300000, guid: 9524f46d828e76a4da88a89692693b9f, type: 3}
   itemTag: 3
   worldPrefab: {fileID: 2493532888007758141, guid: 065bd8b970bcb4e9c81e3550104de7f1, type: 3}

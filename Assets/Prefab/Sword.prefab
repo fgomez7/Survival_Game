@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1466229865687689081}
   - component: {fileID: 3247232319968884575}
   - component: {fileID: 5136441280214665059}
+  - component: {fileID: -7237150987438410882}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -160,3 +161,15 @@ MonoBehaviour:
   itemData: {fileID: 11400000, guid: c0ea1598c135b674788962ffc19b58dc, type: 2}
   playerInRange: 0
   promptUI: {fileID: 0}
+--- !u!114 &-7237150987438410882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2493532888007758141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61f761b258ebae41a1589420b9a1495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

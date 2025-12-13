@@ -17,7 +17,7 @@ public class TopDownPlayerController : MonoBehaviour
     private Vector2 moveInput;
     private Rigidbody2D rb;
 
-    [Header("Health - Stamina - Hunger")]
+    [Header("Health - Stamina - Hunger - Reset")]
     public HealthBar healthBar;
     public int maxHealth = 100;
     public int currHealth;
@@ -27,6 +27,8 @@ public class TopDownPlayerController : MonoBehaviour
     public HungerBar hunger;
     public int currHunger = 100;
     public int maxHunger = 100;
+    public ResetMechanic resetBar;
+    public int currResetBar;
 
     [Header("Attack Settings")]
     public GameObject attackHitbox;
@@ -47,6 +49,9 @@ public class TopDownPlayerController : MonoBehaviour
 
         currHunger = maxHunger;
         hunger.SetMaxHunger(maxHunger);
+
+        currResetBar = 60;
+        resetBar.SetReset(currResetBar);
 
         currentSpeed = moveSpeed;
         //____________CLOCK__________
@@ -88,6 +93,7 @@ public class TopDownPlayerController : MonoBehaviour
         else
         {
             currentclock += 1;
+            resetBar.UpdateReset(-1);
         }
     }
 

@@ -14,6 +14,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     public CanvasGroup canvasGroup { get; private set; }
 
     public Item myItem { get; set; }
+    public int currentDurability;
     public InventorySlot activeSlot { get; set; }
 
     private bool isHovered = false;
@@ -40,6 +41,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (itemIcon == null)
             itemIcon = GetComponentInChildren<Image>();
 
+        currentDurability = 2;
+        Debug.Log($"calling it in awake : {currentDurability}");
         //if (itemIcon == null)
         //    Debug.LogError("InventoryItem: No Image component found on prefab or children!", this);
     }
@@ -50,6 +53,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         activeSlot = parent;
         activeSlot.myItem = this;
         myItem = item;
+        currentDurability = item.maxDurability;
+        Debug.Log($"calling in initialize. currentdurability: {currentDurability}, itemdurability: {item.maxDurability}");
     }
 
     public void OnPointerClick(PointerEventData eventData)

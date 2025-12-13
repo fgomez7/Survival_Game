@@ -1,8 +1,15 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AttackHitbox : MonoBehaviour
 {
     public int damage = 1;
+    public Sword swordDurability;
+
+    private void Start()
+    {
+        swordDurability = GameObject.FindGameObjectWithTag("Player").GetComponent<Sword>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -17,10 +24,18 @@ public class AttackHitbox : MonoBehaviour
         var tree = other.GetComponent<Tree>();
         if (equippedSlot.myItem != null && equippedSlot.myItem.myItem.itemTag == SlotTag.Weapon)
         {
+            
+            //ItemEquipper.Singleton.swordDurability.TakeDamage(1);
+            //sword.TakeDamage(1);
+            //if (equippedSlot.myItem.myItem == null)
+            //{
+            //    Debug.Log("i'm not sure why this is null");
+            //}
             if (tree != null)
             {
                 Debug.Log("Tree found, applying damage");
                 tree.TakeDamage(3);
+                swordDurability.TakeDamage(equippedSlot.myItem);
                 return;
             }
         }

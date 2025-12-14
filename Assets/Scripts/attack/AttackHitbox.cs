@@ -3,6 +3,84 @@ using UnityEngine;
 
 public class AttackHitbox : MonoBehaviour
 {
+    public int handDamage = 1;
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        var equippedSlot = ItemEquipper.Singleton.CurrentSlot();
+
+        Tree tree = other.GetComponent<Tree>();
+        if (tree != null)
+        {
+            // Hand damage
+            if (equippedSlot == null || equippedSlot.myItem == null)
+            {
+                tree.TakeDamage(handDamage);
+                return;
+            }
+
+            InventoryItem invItem = equippedSlot.myItem;
+            Item itemData = invItem.myItem;
+
+            if (itemData.itemTag == SlotTag.Weapon)
+            {
+                int damage = 1 + itemData.treeDamageBonus;
+                tree.TakeDamage(damage);
+                ToolUtility.UseTool(invItem);
+            }
+            else
+            {
+                tree.TakeDamage(handDamage);
+            }
+
+            return;
+        }
+        StoneNode stone = other.GetComponent<StoneNode>();
+        if (stone != null)
+        {
+            int damage = handDamage;
+
+            if (equippedSlot != null && equippedSlot.myItem != null)
+            {
+                InventoryItem invItem = equippedSlot.myItem;
+                Item itemData = invItem.myItem;
+
+                if (itemData.itemTag == SlotTag.Weapon)
+                {
+                    damage = 1 + itemData.treeDamageBonus; // reuse for now
+                    ToolUtility.UseTool(invItem);
+                }
+            }
+
+            stone.TakeDamage(damage);
+            return;
+        }
+
+
+        MushroomChaseEnemy enemy = other.GetComponent<MushroomChaseEnemy>();
+        if (enemy != null)
+        {
+            if (equippedSlot == null || equippedSlot.myItem == null)
+                return;
+
+            InventoryItem invItem = equippedSlot.myItem;
+            Item itemData = invItem.myItem;
+
+            if (itemData.itemTag == SlotTag.Weapon)
+            {
+                enemy.Die();
+                ToolUtility.UseTool(invItem);
+            }
+        }
+    }
+}
+
+
+
+
+
+/* public class AttackHitbox : MonoBehaviour
+{
     public int damage = 1;
     public Sword swordDurability;
 
@@ -57,3 +135,4 @@ public class AttackHitbox : MonoBehaviour
     }
 
 }
+*/ 

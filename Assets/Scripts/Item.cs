@@ -12,6 +12,9 @@ public class Item : ScriptableObject
     public SlotTag itemTag = SlotTag.None;
     public int maxDurability = 2;
 
+    public int treeDamageBonus = 0;
+    public int enemyDamageBonus = 0;
+
     [Header("World (optional)")]
     [Tooltip("If assigned, this prefab will be instantiated when the item is dropped into the world")]
     public GameObject worldPrefab;

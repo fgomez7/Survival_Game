@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Apple
+  - Interactable
+  - Crafing_House
   layers:
   - Default
   - TransparentFX

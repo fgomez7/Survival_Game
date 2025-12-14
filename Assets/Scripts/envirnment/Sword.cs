@@ -27,9 +27,9 @@ public class Sword : MonoBehaviour
     //}
     public void TakeDamage(InventoryItem weapon)
     {
-        Debug.Log($"BEFORE: {weapon.currentDurability}");
+        //Debug.Log($"BEFORE: {weapon.currentDurability}");
         weapon.currentDurability -= 1;
-        Debug.Log($"AFTER: {weapon.currentDurability}");
+        //Debug.Log($"AFTER: {weapon.currentDurability}");
         if (weapon.currentDurability <= 0)
         {
             var currslot = ItemEquipper.Singleton.CurrentSlot();

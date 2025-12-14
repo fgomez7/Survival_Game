@@ -1,76 +1,58 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AttackHitbox : MonoBehaviour
 {
     public int handDamage = 1;
+    public Sword swordDurability;
+
+    private void Start()
+    {
+        swordDurability = GameObject.FindGameObjectWithTag("Player")
+                                    .GetComponent<Sword>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         var equippedSlot = ItemEquipper.Singleton.CurrentSlot();
 
+        // ---------------- SAFETY CHECK ----------------
+        if (equippedSlot == null || equippedSlot.myItem == null)
+            return;
+
+        InventoryItem invItem = equippedSlot.myItem;
+        Item itemData = invItem.myItem;
+
+        // Only weapons should trigger this hitbox
+        if (itemData.itemTag != SlotTag.Weapon)
+            return;
+
+        // ---------------- TREE ----------------
         Tree tree = other.GetComponent<Tree>();
         if (tree != null)
         {
-            // Hand damage
-            if (equippedSlot == null || equippedSlot.myItem == null)
-            {
-                tree.TakeDamage(handDamage);
-                return;
-            }
-
-            InventoryItem invItem = equippedSlot.myItem;
-            Item itemData = invItem.myItem;
-
-            if (itemData.itemTag == SlotTag.Weapon)
-            {
-                int damage = 1 + itemData.treeDamageBonus;
-                tree.TakeDamage(damage);
-                ToolUtility.UseTool(invItem);
-            }
-            else
-            {
-                tree.TakeDamage(handDamage);
-            }
-
-            return;
-        }
-        StoneNode stone = other.GetComponent<StoneNode>();
-        if (stone != null)
-        {
-            int damage = handDamage;
-
-            if (equippedSlot != null && equippedSlot.myItem != null)
-            {
-                InventoryItem invItem = equippedSlot.myItem;
-                Item itemData = invItem.myItem;
-
-                if (itemData.itemTag == SlotTag.Weapon)
-                {
-                    damage = 1 + itemData.treeDamageBonus; // reuse for now
-                    ToolUtility.UseTool(invItem);
-                }
-            }
-
-            stone.TakeDamage(damage);
+            tree.TakeDamage(3);
+            swordDurability.TakeDamage(invItem);
             return;
         }
 
+        // ---------------- MUSHROOM ----------------
+        MushroomChaseEnemy mushroom =
+            other.GetComponentInParent<MushroomChaseEnemy>();
 
-        MushroomChaseEnemy enemy = other.GetComponent<MushroomChaseEnemy>();
-        if (enemy != null)
+        if (mushroom != null)
         {
-            if (equippedSlot == null || equippedSlot.myItem == null)
-                return;
+            mushroom.Die();
+            return;
+        }
 
-            InventoryItem invItem = equippedSlot.myItem;
-            Item itemData = invItem.myItem;
+        // ---------------- SKELETON ----------------
+        SkeletonChaseEnemy skeleton =
+            other.GetComponentInParent<SkeletonChaseEnemy>();
 
-            if (itemData.itemTag == SlotTag.Weapon)
-            {
-                enemy.Die();
-                ToolUtility.UseTool(invItem);
-            }
+        if (skeleton != null)
+        {
+            skeleton.Die();
+            return;
         }
     }
 }

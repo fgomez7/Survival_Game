@@ -42,7 +42,7 @@ public class CraftingZone : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        // 🛡️ Skip if exiting play mode or object destroyed
+        // Skip if exiting play mode or object destroyed
         if (isQuitting || !Application.isPlaying) return;
         if (other == null) return;
         if (!other.CompareTag("Player")) return;

@@ -17,16 +17,16 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {
         // TEMP: Press H to take damage (for testing)
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            TakeDamage(10);
-        }
+        // if (Input.GetKeyDown(KeyCode.H))
+        // {
+        //     TakeDamage(10);
+        // }
 
-        // TEMP: Press J to heal
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            Heal(10);
-        }
+        // // TEMP: Press J to heal
+        // if (Input.GetKeyDown(KeyCode.J))
+        // {
+        //     Heal(10);
+        // }
     }
 
     public void TakeDamage(int damage)
@@ -38,6 +38,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            Debug.Log("Player has died!");
             Die();
         }
     }

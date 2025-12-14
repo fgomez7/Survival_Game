@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HealthBar : MonoBehaviour
 {
@@ -25,10 +26,25 @@ public class HealthBar : MonoBehaviour
         //    slider.value += health;
         //}
         slider.value = Mathf.Clamp(slider.value + health, 0, 100);
+
     }
 
     public int returnCurrHealth()
     {
         return (int)slider.value;
+    }
+
+    public void PlayerDied()
+    {
+        Debug.Log("player actually died");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    private void FixedUpdate()
+    {
+        if (slider.value <= 0)
+        {
+            PlayerDied();
+        }
     }
 }

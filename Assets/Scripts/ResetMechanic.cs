@@ -16,7 +16,7 @@ public class ResetMechanic : MonoBehaviour
 
     public void UpdateReset(int time)
     {
-        slider.value = Mathf.Clamp(slider.value + time, 0, 60);
+        slider.value = Mathf.Clamp(slider.value + time, 0, 300);
     }
 
 }

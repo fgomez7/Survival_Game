@@ -96,6 +96,7 @@ public class ItemPickup : MonoBehaviour
     private void CollectItem()
     {
         Debug.Log($"Collected {itemData.name}");
+        TopDownPlayerController.Singleton.ObjectiveList(1, 1);
 
         if (Inventory.Singleton != null)
         {

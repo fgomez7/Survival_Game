@@ -4,65 +4,175 @@ public class AttackHitbox : MonoBehaviour
 {
     public int handDamage = 1;
     public Sword swordDurability;
+    private bool hashit = false;
+    private Collider2D hitbox;
 
+    private void Awake()
+    {
+        hitbox = GetComponent<Collider2D>();
+        //hitbox.enabled = false;
+    }
     private void Start()
     {
         swordDurability = GameObject.FindGameObjectWithTag("Player")
                                     .GetComponent<Sword>();
     }
 
+    private void OnEnable()
+    {
+        hashit = false;
+    }
+
+    //public void EnableHitBox()
+    //{
+    //    hashit = false;
+    //    hitbox.enabled = true;
+    //}
+
+    //public void DisableHitbox()
+    //{
+    //    hitbox.enabled = false;
+    //}
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (hashit) return;
+        hashit = true;
         var equippedSlot = ItemEquipper.Singleton.CurrentSlot();
 
         // ---------------- SAFETY CHECK ----------------
-        if (equippedSlot == null || equippedSlot.myItem == null)
+        if (equippedSlot == null && equippedSlot.myItem == null)
             return;
 
-        InventoryItem invItem = equippedSlot.myItem;
-        Item itemData = invItem.myItem;
+        string currHand = "";
+        if (equippedSlot != null)
+        {
+            currHand = equippedSlot.myItem.myItem.name;
+        }
 
-        // Only weapons trigger this hitbox
-        if (itemData.itemTag != SlotTag.Weapon)
-            return;
-
-        // ---------------- TREE ----------------
         Tree tree = other.GetComponent<Tree>();
-        if (tree != null)
-        {
-            tree.TakeDamage(3);
-            swordDurability.TakeDamage(invItem);
-            return;
-        }
-
-        // ---------------- STONE ----------------
         StoneNode stone = other.GetComponent<StoneNode>();
-        if (stone != null)
-        {
-            stone.TakeDamage(2);              // stone-specific damage
-            swordDurability.TakeDamage(invItem);
-            return;
+        MushroomChaseEnemy mushroom = other.GetComponentInParent<MushroomChaseEnemy>();
+        SkeletonChaseEnemy skeleton = other.GetComponentInParent<SkeletonChaseEnemy>();
+
+        switch (currHand) {
+            case "Sword":
+                if (tree != null)
+                {
+                    tree.TakeDamage(2);
+                    swordDurability.TakeDamage(equippedSlot.myItem);
+                    return;
+                }
+                else if (stone != null)
+                {
+                    stone.TakeDamage(2);
+                    swordDurability.TakeDamage(equippedSlot.myItem);
+                    return;
+                }
+                else if (mushroom != null)
+                {
+                    mushroom.Die(3);
+                    swordDurability.TakeDamage(equippedSlot.myItem);
+                    return;
+                }
+                else if (skeleton != null)
+                {
+                    skeleton.Die(3);
+                    swordDurability.TakeDamage(equippedSlot.myItem);
+                    return;
+                }
+             break;
+            case "Axe":
+                if (tree != null)
+                {
+                    tree.TakeDamage(3);
+                    swordDurability.TakeDamage(equippedSlot.myItem);
+                    return;
+                }
+                else if (stone != null)
+                {
+                    stone.TakeDamage(2);
+                    swordDurability.TakeDamage(equippedSlot.myItem);
+                    return;
+                }
+                else if (mushroom != null)
+                {
+                    mushroom.Die(2);
+                    swordDurability.TakeDamage(equippedSlot.myItem);
+                    return;
+                }
+                else if (skeleton != null)
+                {
+                    skeleton.Die(2);
+                    swordDurability.TakeDamage(equippedSlot.myItem);
+                    return;
+                }
+             break;
+            default:
+                if (tree != null)
+                {
+                    tree.TakeDamage(1);
+                    return;
+                }
+                else if (stone != null)
+                {
+                    stone.TakeDamage(1);
+                    return;
+                }
+                else if (mushroom != null)
+                {
+                    mushroom.Die(1);
+                    return;
+                }
+                else if (skeleton != null)
+                {
+                    skeleton.Die(1);
+                    return;
+                }
+            break;
         }
 
-        // ---------------- MUSHROOM ----------------
-        MushroomChaseEnemy mushroom =
-            other.GetComponentInParent<MushroomChaseEnemy>();
+        //    InventoryItem invItem = equippedSlot.myItem;
+        //    Item itemData = invItem.myItem;
 
-        if (mushroom != null)
-        {
-            mushroom.Die();
-            return;
-        }
+        //    // Only weapons trigger this hitbox
+        //    if (itemData.itemTag != SlotTag.Weapon)
+        //        return;
 
-        // ---------------- SKELETON ----------------
-        SkeletonChaseEnemy skeleton =
-            other.GetComponentInParent<SkeletonChaseEnemy>();
+        //    // ---------------- TREE ----------------
+        //    //Tree tree = other.GetComponent<Tree>();
+        //    if (tree != null)
+        //    {
+        //        tree.TakeDamage(3);
+        //        swordDurability.TakeDamage(invItem);
+        //        return;
+        //    }
 
-        if (skeleton != null)
-        {
-            skeleton.Die();
-            return;
-        }
+        //    // ---------------- STONE ----------------
+        //    //StoneNode stone = other.GetComponent<StoneNode>();
+        //    if (stone != null)
+        //    {
+        //        stone.TakeDamage(2);              // stone-specific damage
+        //        swordDurability.TakeDamage(invItem);
+        //        return;
+        //    }
+
+        //    // ---------------- MUSHROOM ----------------
+        //    //MushroomChaseEnemy mushroom = other.GetComponentInParent<MushroomChaseEnemy>();
+
+        //    if (mushroom != null)
+        //    {
+        //        mushroom.Die();
+        //        return;
+        //    }
+
+        //    // ---------------- SKELETON ----------------
+        //    //SkeletonChaseEnemy skeleton = other.GetComponentInParent<SkeletonChaseEnemy>();
+
+        //    if (skeleton != null)
+        //    {
+        //        skeleton.Die();
+        //        return;
+        //    }
     }
 }
 

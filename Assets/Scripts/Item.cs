@@ -10,7 +10,7 @@ public class Item : ScriptableObject
     public bool isPermanent;
     public Sprite sprite;
     public SlotTag itemTag = SlotTag.None;
-    public int maxDurability = 2;
+    public int maxDurability = 20;
 
     public int treeDamageBonus = 0;
     public int enemyDamageBonus = 0;

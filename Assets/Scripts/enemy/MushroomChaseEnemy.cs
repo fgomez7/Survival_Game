@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 public class MushroomChaseEnemy : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class MushroomChaseEnemy : MonoBehaviour
     private SpriteRenderer sr;
 
     private bool isDead = false;
+    private int health;
 
     void Start()
     {
@@ -25,6 +27,7 @@ public class MushroomChaseEnemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
+        health = 6;
     }
 
     void Update()
@@ -77,11 +80,15 @@ public class MushroomChaseEnemy : MonoBehaviour
     }
 
     // CALLED WHEN PLAYER ATTACK HITS ENEMY
-    public void Die()
+    public void Die(int damage)
     {
         if (isDead) return;
+        health -= damage;
 
-        isDead = true;
+        if (health <= 0)
+        { 
+            isDead = true;
+        }
 
         // Stop physics
         rb.velocity = Vector2.zero;

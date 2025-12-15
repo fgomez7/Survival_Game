@@ -16,9 +16,11 @@ public class SkeletonChaseEnemy : MonoBehaviour
 
     private bool isDead = false;
     private float lastDamageTime;
+    private int health;
 
     void Start()
     {
+        health = 6;
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
         rb = GetComponent<Rigidbody2D>();
@@ -86,11 +88,20 @@ public class SkeletonChaseEnemy : MonoBehaviour
     }
 
     // Called by weapon hitbox
-    public void Die()
+    public void Die(int damage)
     {
         if (isDead) return;
+        health -= damage;
 
-        isDead = true;
+        if (health <= 0)
+        {
+            isDead = true;
+        }
+        else
+        {
+            return;
+        }
+        Debug.Log($"skeleton {damage} and current {health}");
 
         rb.velocity = Vector2.zero;
         rb.isKinematic = true;

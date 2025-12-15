@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class TopDownPlayerController : MonoBehaviour
 {
+    public static TopDownPlayerController Singleton;
     [Header("Movement")]
     public float moveSpeed = 5f;
     public float sprintSpeed = 10f;
@@ -39,8 +40,11 @@ public class TopDownPlayerController : MonoBehaviour
 
     private int currentclock;
 
+    private int objApple;
+    private int currentLevel;
     void Start()
     {
+        Singleton = this;
         currHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
 
@@ -50,7 +54,7 @@ public class TopDownPlayerController : MonoBehaviour
         currHunger = maxHunger;
         hunger.SetMaxHunger(maxHunger);
 
-        currResetBar = 60;
+        currResetBar = 300;
         resetBar.SetReset(currResetBar);
 
         currentSpeed = moveSpeed;
@@ -63,6 +67,9 @@ public class TopDownPlayerController : MonoBehaviour
         if (attackHitbox != null)
             attackHitbox.SetActive(false);
         currentclock = 0;
+
+        currentLevel = InventoryPersistentStorage.currentLevel;
+        objApple = 0;
     }
 
     private void OnDestroy()
@@ -84,7 +91,7 @@ public class TopDownPlayerController : MonoBehaviour
             healthBar.UpdateHealth(3);
         }
 
-        if (currentclock >= 60)
+        if (currentclock >= 300)
         {
             currentclock = 0;
             //Inventory.Singleton.RemoveAll();
@@ -178,7 +185,7 @@ public class TopDownPlayerController : MonoBehaviour
     void TakeDamage(int damage)
     {
         currHealth -= damage;
-        healthBar.SetHealth(currHealth);
+        //healthBar.SetHealth(currHealth);
         //currHunger -= damage;
         //hunger.SetHunger(currHunger);
     }
@@ -199,6 +206,20 @@ public class TopDownPlayerController : MonoBehaviour
         {
             currStamina += stam;
             stamina.SetStamina(currStamina);
+        }
+    }
+
+    public void ObjectiveList(int obj, int count)
+    {
+        if (currentLevel == 1)
+        {
+            objApple += 1;
+            //if (objApple >= 1)
+            //{
+            //    Inventory.Singleton.SavePersistentItems();
+            //    InventoryPersistentStorage.currentLevel = currentLevel + 1;
+            //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            //}
         }
     }
 }

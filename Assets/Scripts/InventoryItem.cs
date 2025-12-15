@@ -41,7 +41,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (itemIcon == null)
             itemIcon = GetComponentInChildren<Image>();
 
-        currentDurability = 2;
+        currentDurability = 20;
         Debug.Log($"calling it in awake : {currentDurability}");
         //if (itemIcon == null)
         //    Debug.LogError("InventoryItem: No Image component found on prefab or children!", this);

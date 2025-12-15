@@ -139,9 +139,14 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            var newItem = Instantiate(itemPrefab, inventorySlots[indexSlot].transform);
-            newItem.Initialize(item, inventorySlots[indexSlot]);
+            if (InventoryUI.Singleton.isInventoryOpen || indexSlot >= 21)
+            {
+                var newItem = Instantiate(itemPrefab, inventorySlots[indexSlot].transform);
+                newItem.Initialize(item, inventorySlots[indexSlot]);
+
+            }
             storedItems[indexSlot] = item;
+            
         }
     }
 

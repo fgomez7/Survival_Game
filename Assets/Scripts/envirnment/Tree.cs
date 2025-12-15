@@ -2,7 +2,7 @@
 
 public class Tree : MonoBehaviour
 {
-    public int maxHealth = 3;
+    public int maxHealth = 6;
     private int currentHealth;
 
     [Header("Drop Settings")]

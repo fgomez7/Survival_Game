@@ -37,6 +37,7 @@ public class HealthBar : MonoBehaviour
     public void PlayerDied()
     {
         Debug.Log("player actually died");
+        Inventory.Singleton.SavePersistentItems();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

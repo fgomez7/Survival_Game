@@ -49,6 +49,25 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public void Initialize( Item item, InventorySlot parent )
     {
+        if (itemIcon == null)
+        {
+            Debug.LogError("❌ InventoryItem.Initialize: itemIcon is NULL", this);
+            return;
+        }
+
+        if (item == null)
+        {
+            Debug.LogError("❌ InventoryItem.Initialize: item is NULL", this);
+            return;
+        }
+
+        if (parent == null)
+        {
+            Debug.LogError("❌ InventoryItem.Initialize: parent slot is NULL", this);
+            return;
+        }
+
+
         itemIcon.sprite = item.sprite;
         activeSlot = parent;
         activeSlot.myItem = this;

@@ -22,7 +22,7 @@ public class AttackHitbox : MonoBehaviour
         InventoryItem invItem = equippedSlot.myItem;
         Item itemData = invItem.myItem;
 
-        // Only weapons should trigger this hitbox
+        // Only weapons trigger this hitbox
         if (itemData.itemTag != SlotTag.Weapon)
             return;
 
@@ -31,6 +31,15 @@ public class AttackHitbox : MonoBehaviour
         if (tree != null)
         {
             tree.TakeDamage(3);
+            swordDurability.TakeDamage(invItem);
+            return;
+        }
+
+        // ---------------- STONE ----------------
+        StoneNode stone = other.GetComponent<StoneNode>();
+        if (stone != null)
+        {
+            stone.TakeDamage(2);              // stone-specific damage
             swordDurability.TakeDamage(invItem);
             return;
         }
@@ -56,6 +65,7 @@ public class AttackHitbox : MonoBehaviour
         }
     }
 }
+
 
 
 

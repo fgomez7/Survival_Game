@@ -16,6 +16,6 @@ MonoBehaviour:
   requiredItem1: {fileID: 11400000, guid: 1e3f675ea6e585b4c9d3ebc20dab2f4e, type: 2}
   requiredAmount1: 3
   requiredItem2: {fileID: 11400000, guid: 58d6bb265d6047a42971074ba6f9992c, type: 2}
-  requiredAmount2: 3
+  requiredAmount2: 2
   outputItem: {fileID: 11400000, guid: d8b5c89732368b54680357fc869ecb5d, type: 2}
   outputItemPrefab: {fileID: 1766617961780270262, guid: e10c7fc2f2127694893fdb7361e4665a, type: 3}

@@ -230,7 +230,7 @@ public class TopDownPlayerController : MonoBehaviour
             objApple += 1;
             //int currentcount = objApple - 1;
             //objList.text = "Eliminated " + currentcount.ToString() + " / 10 Skeletons";
-            if (objApple >= 3)
+            if (objApple >= 10)
             {
                 Inventory.Singleton.SavePersistentItems();
                 InventoryPersistentStorage.currentLevel = currentLevel + 1;
@@ -241,7 +241,7 @@ public class TopDownPlayerController : MonoBehaviour
         if (currentLevel == 2 && enemy == 2)
         {
             objApple += 1;
-            if (objApple >= 2)
+            if (objApple >= 10)
             {
                 Inventory.Singleton.SavePersistentItems();
                 InventoryPersistentStorage.currentLevel = currentLevel + 1;

@@ -122,10 +122,10 @@ public class TopDownPlayerController : MonoBehaviour
         moveInput = value.Get<Vector2>();
 
         // Testing damage (your old debug)
-        if (moveInput.y > 0)
-        {
-            TakeDamage(5);
-        }
+        //if (moveInput.y > 0)
+        //{
+        //    TakeDamage(5);
+        //}
     }
 
     // === ATTACK INPUT ===
@@ -182,12 +182,11 @@ public class TopDownPlayerController : MonoBehaviour
     }
 
     // === HEALTH ===
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
-        currHealth -= damage;
-        //healthBar.SetHealth(currHealth);
-        //currHunger -= damage;
-        //hunger.SetHunger(currHunger);
+        //currHealth -= damage;
+        healthBar.UpdateHealth(-damage);
+        
     }
 
     // === STAMINA ===
@@ -209,17 +208,27 @@ public class TopDownPlayerController : MonoBehaviour
         }
     }
 
-    public void ObjectiveList(int obj, int count)
+    public void ObjectiveList(int enemy)
     {
-        if (currentLevel == 1)
+        if (currentLevel == 1 && enemy == 1)
         {
             objApple += 1;
-            //if (objApple >= 1)
-            //{
-            //    Inventory.Singleton.SavePersistentItems();
-            //    InventoryPersistentStorage.currentLevel = currentLevel + 1;
-            //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            //}
+            if (objApple >= 1)
+            {
+                Inventory.Singleton.SavePersistentItems();
+                InventoryPersistentStorage.currentLevel = currentLevel + 1;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+        }
+        if (currentLevel == 2 && enemy == 2)
+        {
+            objApple += 1;
+            if (objApple >= 2)
+            {
+                Inventory.Singleton.SavePersistentItems();
+                InventoryPersistentStorage.currentLevel = currentLevel + 1;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ public class Tree : MonoBehaviour
 
     [Header("Drop Settings")]
     public GameObject woodDropPrefab;   // what item drops
+    public GameObject applepPrefab;
     public int woodAmount = 2;          // how many pieces of wood
 
     private void Start()
@@ -39,6 +40,7 @@ public class Tree : MonoBehaviour
             );
 
             Instantiate(woodDropPrefab, transform.position + offset, Quaternion.identity);
+            if (i % 2 == 0) Instantiate(applepPrefab, transform.position + offset, Quaternion.identity);
         }
 
         Destroy(gameObject);

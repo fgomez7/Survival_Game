@@ -82,7 +82,8 @@ public class SkeletonChaseEnemy : MonoBehaviour
         if (other.CompareTag("Player") &&
             Time.time > lastDamageTime + damageCooldown)
         {
-            other.GetComponent<PlayerHealth>()?.TakeDamage(damageAmount);
+            //other.GetComponent<PlayerHealth>()?.TakeDamage(damageAmount);
+            other.GetComponent<TopDownPlayerController>()?.TakeDamage(damageAmount);
             lastDamageTime = Time.time;
         }
     }
@@ -101,7 +102,7 @@ public class SkeletonChaseEnemy : MonoBehaviour
         {
             return;
         }
-        Debug.Log($"skeleton {damage} and current {health}");
+        //Debug.Log($"skeleton {damage} and current {health}");
 
         rb.velocity = Vector2.zero;
         rb.isKinematic = true;
@@ -110,5 +111,6 @@ public class SkeletonChaseEnemy : MonoBehaviour
         anim.SetTrigger("Die");
 
         Destroy(gameObject, 1f); // match die animation length
+        TopDownPlayerController.Singleton.ObjectiveList(1);
     }
 }

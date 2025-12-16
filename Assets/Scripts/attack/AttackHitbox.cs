@@ -40,11 +40,11 @@ public class AttackHitbox : MonoBehaviour
         var equippedSlot = ItemEquipper.Singleton.CurrentSlot();
 
         // ---------------- SAFETY CHECK ----------------
-        if (equippedSlot == null && equippedSlot.myItem == null)
-            return;
+        //if (equippedSlot == null && equippedSlot.myItem == null)
+        //    return;
 
         string currHand = "";
-        if (equippedSlot != null)
+        if (equippedSlot != null && equippedSlot.myItem != null)
         {
             currHand = equippedSlot.myItem.myItem.name;
         }

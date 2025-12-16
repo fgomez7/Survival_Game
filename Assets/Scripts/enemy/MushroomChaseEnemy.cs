@@ -22,6 +22,7 @@ public class MushroomChaseEnemy : MonoBehaviour
 
     void Start()
     {
+        health = 6;
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
         rb = GetComponent<Rigidbody2D>();
@@ -86,8 +87,12 @@ public class MushroomChaseEnemy : MonoBehaviour
         health -= damage;
 
         if (health <= 0)
-        { 
+        {
             isDead = true;
+        }
+        else
+        {
+            return;
         }
 
         // Stop physics
@@ -102,5 +107,6 @@ public class MushroomChaseEnemy : MonoBehaviour
 
         // Destroy after animation
         Destroy(gameObject, 1f); // match animation length
+        TopDownPlayerController.Singleton.ObjectiveList(2);
     }
 }

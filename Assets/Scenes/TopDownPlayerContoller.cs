@@ -7,6 +7,8 @@ using System.Net;
 using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class TopDownPlayerController : MonoBehaviour
 {
@@ -42,6 +44,8 @@ public class TopDownPlayerController : MonoBehaviour
 
     private int objApple;
     private int currentLevel;
+    //public Text objList;
+    public TextMeshProUGUI objList;
     void Start()
     {
         Singleton = this;
@@ -70,6 +74,8 @@ public class TopDownPlayerController : MonoBehaviour
 
         currentLevel = InventoryPersistentStorage.currentLevel;
         objApple = 0;
+        objList.text = "Eliminated " + 0.ToString() + " / 10 Skeletons";
+        InventoryPersistentStorage.failed = true;
     }
 
     private void OnDestroy()
@@ -179,6 +185,15 @@ public class TopDownPlayerController : MonoBehaviour
             currentSpeed = moveSpeed;
         }
         rb.velocity = moveInput * currentSpeed;
+
+        if (currentLevel == 1)
+        {
+            objList.text = "Eliminated " + objApple.ToString() + " / 10 Skeletons";
+        }
+        else if (currentLevel == 2)
+        {
+            objList.text = "Eliminated " + objApple.ToString() + " / 10 Mushrooms";
+        }
     }
 
     // === HEALTH ===
@@ -213,10 +228,13 @@ public class TopDownPlayerController : MonoBehaviour
         if (currentLevel == 1 && enemy == 1)
         {
             objApple += 1;
-            if (objApple >= 1)
+            //int currentcount = objApple - 1;
+            //objList.text = "Eliminated " + currentcount.ToString() + " / 10 Skeletons";
+            if (objApple >= 3)
             {
                 Inventory.Singleton.SavePersistentItems();
                 InventoryPersistentStorage.currentLevel = currentLevel + 1;
+                InventoryPersistentStorage.failed = false;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }
@@ -227,6 +245,7 @@ public class TopDownPlayerController : MonoBehaviour
             {
                 Inventory.Singleton.SavePersistentItems();
                 InventoryPersistentStorage.currentLevel = currentLevel + 1;
+                InventoryPersistentStorage.failed = false;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }

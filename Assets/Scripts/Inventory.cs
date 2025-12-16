@@ -237,6 +237,7 @@ public class Inventory : MonoBehaviour
             {
                 ItemEquipper.Singleton.ResetEquipped(item.activeSlot.slotIndex);
                 item.activeSlot.myItem = null;
+                RemoveStoredItem(item.activeSlot.slotIndex);
                 Destroy(item.gameObject);
             }
             Debug.LogWarning("Tried to consume a non-consumable item.");

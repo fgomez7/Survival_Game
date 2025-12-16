@@ -89,10 +89,10 @@ public class CraftingMenuUI : MonoBehaviour
         craftBoxButton.interactable = wood >= 3;
 
         // Craft Sword: requires 1 Stick (Plank) + 2 Stone
-        craftSwordButton.interactable = (sticks >= 1) && (stone >= 2);
+        craftSwordButton.interactable = (sticks >= 4) && (stone >= 2);
 
         // Craft Axe: requires 1 Stick (Plank) + 3 Stone
-        craftAxeButton.interactable = (sticks >= 1) && (stone >= 3);
+        craftAxeButton.interactable = (wood >= 3) && (stone >= 2);
 
         // Craft Stone Box: requires 3 Stone + 1 Wood
         craftStoneBoxButton.interactable = (stone >= 3) && (wood >= 1);

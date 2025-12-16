@@ -16,7 +16,7 @@ MonoBehaviour:
   isPermanent: 1
   sprite: {fileID: 21300000, guid: 974570d267036ca419e4efed2ce5bd75, type: 3}
   itemTag: 3
-  maxDurability: 10
+  maxDurability: 12
   treeDamageBonus: 2
   enemyDamageBonus: 0
   worldPrefab: {fileID: 1766617961780270262, guid: e10c7fc2f2127694893fdb7361e4665a, type: 3}
